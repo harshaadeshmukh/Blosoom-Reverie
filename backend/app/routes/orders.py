@@ -24,12 +24,12 @@ async def create_order(order: OrderCreate, background_tasks: BackgroundTasks):
     created = await db.orders.find_one({"_id": result.inserted_id})
     
     # Trigger confirmation email in the background
-    background_tasks.add_task(
-        send_order_confirmation,
-        contact_info=order.contact,
-        customer_name=order.name,
-        order_details=doc
-    )
+    # background_tasks.add_task(
+    #     send_order_confirmation,
+    #     contact_info=order.contact,
+    #     customer_name=order.name,
+    #     order_details=doc
+    # )
     
     return fix_id(created)
 
