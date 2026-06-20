@@ -85,6 +85,11 @@ export default function Testimonials() {
                     .marquee-container {
                       animation: marquee var(--marquee-duration) linear infinite;
                     }
+                    @media (max-width: 768px) {
+                      .marquee-container {
+                        animation-duration: calc(var(--marquee-duration) * 2);
+                      }
+                    }
                     .group:hover .marquee-container {
                       animation-play-state: paused;
                     }
