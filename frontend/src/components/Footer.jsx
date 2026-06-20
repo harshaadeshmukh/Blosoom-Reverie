@@ -2,9 +2,8 @@ import { Link } from 'react-router-dom';
 
 const NAV_LINKS = ['Home', 'Collections', 'Custom Orders', 'Our Story', 'Review'];
 const CONNECT = [
-  { label: 'Instagram', href: 'https://instagram.com' },
-  { label: 'WhatsApp Us', href: 'https://wa.me/91XXXXXXXXXX' },
-  { label: 'Pinterest', href: 'https://pinterest.com' },
+  { label: 'Instagram', href: 'https://instagram.com/blossomreverie.gifts' },
+  { label: 'WhatsApp Us', href: 'https://wa.me/918625902160' },
 ];
 const FIND = ['blosoomreverie.gifts', 'Pune, Maharashtra', 'India'];
 

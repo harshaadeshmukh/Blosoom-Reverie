@@ -250,14 +250,14 @@ export default function Connect() {
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-12 text-center">
           <div>
             <div className="text-[9px] tracking-[3px] text-rose uppercase mb-2">WhatsApp</div>
-            <a href="https://wa.me/91XXXXXXXXXX" className="text-[13px] font-light text-text-muted hover:text-charcoal transition-colors">
-              +91 XXXXXXXXXX
+            <a href="https://wa.me/918625902160" className="text-[13px] font-light text-text-muted hover:text-charcoal transition-colors">
+              +91 86259 02160
             </a>
           </div>
           <div>
             <div className="text-[9px] tracking-[3px] text-rose uppercase mb-2">Instagram</div>
-            <a href="https://instagram.com" className="text-[13px] font-light text-text-muted hover:text-charcoal transition-colors">
-              @blosoomreverie
+            <a href="https://instagram.com/blossomreverie.gifts" className="text-[13px] font-light text-text-muted hover:text-charcoal transition-colors">
+              @blossomreverie.gifts
             </a>
           </div>
           <div>
