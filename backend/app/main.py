@@ -49,5 +49,6 @@ async def health_check():
 
 
 @app.get("/")
+@app.head("/")
 async def root():
     return {"status": "online", "message": "Blosoom Reverie API is running. Use the frontend application to interact with this service."}
