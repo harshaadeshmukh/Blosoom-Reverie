@@ -1,0 +1,100 @@
+import { Link } from 'react-router-dom';
+
+const NAV_LINKS = ['Home', 'Collections', 'Custom Orders', 'Our Story', 'Review'];
+const CONNECT = [
+  { label: 'Instagram', href: 'https://instagram.com' },
+  { label: 'WhatsApp Us', href: 'https://wa.me/91XXXXXXXXXX' },
+  { label: 'Pinterest', href: 'https://pinterest.com' },
+];
+const FIND = ['blosoomreverie.gifts', 'Pimpri, Maharashtra', 'India'];
+
+const ROUTE_MAP = {
+  Home: '/',
+  Collections: '/collections',
+  'Custom Orders': '/custom-order',
+  'Our Story': '/our-story',
+  'Review': '/feedback',
+};
+
+export default function Footer() {
+  return (
+    <footer className="bg-charcoal-deep pt-14 pb-8 px-6 md:px-10">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-8 mb-12">
+          {/* Brand */}
+          <div className="col-span-2 sm:col-span-2 md:col-span-1">
+            <div className="font-playfair text-[18px] italic text-text-warm mb-1.5">
+              Blosoom Reverie
+            </div>
+            <div className="text-[9px] tracking-[3px] text-rose-muted uppercase mb-4">
+              Crafted with love · Wrapped in memories
+            </div>
+            <p className="text-[11px] font-light text-text-sand leading-[1.8]">
+              A handmade gifting studio based in Pimpri, Maharashtra. Every bouquet is made by
+              hand, built around your story, and wrapped with intention.
+            </p>
+          </div>
+
+          {/* Navigate */}
+          <div>
+            <div className="text-[9px] tracking-[3px] text-rose-muted uppercase mb-4">Navigate</div>
+            <div className="flex flex-col gap-2.5">
+              {NAV_LINKS.map((l) => (
+                <Link
+                  key={l}
+                  to={ROUTE_MAP[l]}
+                  className="text-[12px] font-light text-rose-muted transition-all duration-300
+                             hover:text-text-warm hover:pl-1.5"
+                >
+                  {l}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Review Link */}
+          <div>
+            <div className="text-[9px] tracking-[3px] text-rose-muted uppercase mb-4">Reviews</div>
+            <div className="flex flex-col gap-2.5">
+              {CONNECT.map((c) => (
+                <a
+                  key={c.label}
+                  href={c.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[12px] font-light text-rose-muted transition-all duration-300
+                             hover:text-text-warm hover:pl-1.5"
+                >
+                  {c.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Find Us */}
+          <div>
+            <div className="text-[9px] tracking-[3px] text-rose-muted uppercase mb-4">Find Us</div>
+            <div className="flex flex-col gap-2.5">
+              {FIND.map((f, i) => (
+                <span
+                  key={i}
+                  className="text-[12px] font-light text-rose-muted"
+                >
+                  {f}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-charcoal-mid pt-5 flex flex-col sm:flex-row justify-between gap-2">
+          <span className="text-[10px] text-[#7A5A50] tracking-[1px]">
+            © 2025 Blosoom Reverie. All rights reserved.
+          </span>
+          <span className="text-[10px] text-[#7A5A50] tracking-[1px]">Made with love in India</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
