@@ -251,27 +251,26 @@ export default function CustomOrder() {
                 />
               </div>
               <div>
-                <label className={labelCls}>Email Address</label>
+                <label className={labelCls}>Primary WhatsApp Number</label>
                 <input
                   id="order-contact"
-                  type="email"
+                  type="tel"
                   name="contact"
                   value={form.contact}
                   onChange={handleChange}
                   required
-                  placeholder="priya@example.com"
+                  placeholder="+91 8625902160"
                   className={inputCls}
                 />
               </div>
               <div>
-                <label className={labelCls}>WhatsApp / Mobile</label>
+                <label className={labelCls}>Alternate Number (Optional)</label>
                 <input
                   id="order-phone"
                   type="tel"
                   name="phone"
                   value={form.phone}
                   onChange={handleChange}
-                  required
                   placeholder="+91 9876543210"
                   className={inputCls}
                 />
@@ -318,7 +317,7 @@ export default function CustomOrder() {
                 <label className={labelCls}>
                   Approximate Number of Photos
                   <span className="text-[11px] text-text-muted normal-case tracking-normal block mt-1 font-medium">
-                    (You'll send photos via email after we connect)
+                    (You'll send photos via WhatsApp after we connect)
                   </span>
                 </label>
                 <input
