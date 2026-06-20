@@ -87,7 +87,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-charcoal-mid pt-5 flex flex-col sm:flex-row justify-between gap-2">
           <span className="text-[10px] text-[#7A5A50] tracking-[1px]">
-            © 2025 Blosoom Reverie. All rights reserved.
+            © {new Date().getFullYear()} Blosoom Reverie. All rights reserved.
           </span>
           <span className="text-[10px] text-[#7A5A50] tracking-[1px]">Made with love in India</span>
         </div>
