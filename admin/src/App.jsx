@@ -8,6 +8,10 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('pending');
   const [selectedYear, setSelectedYear] = useState('All');
   const [expandedImage, setExpandedImage] = useState(null);
+  
+  const [isAuthenticated, setIsAuthenticated] = useState(sessionStorage.getItem('auth') === 'true');
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const availableYears = useMemo(() => {
     const years = new Set();
@@ -25,9 +29,11 @@ export default function App() {
   }, [orders]);
 
   useEffect(() => {
-    fetchOrders();
-    fetchReviews();
-  }, []);
+    if (isAuthenticated) {
+      fetchOrders();
+      fetchReviews();
+    }
+  }, [isAuthenticated]);
 
   const fetchOrders = async () => {
     try {
@@ -90,6 +96,50 @@ export default function App() {
       alert("Failed to update status");
     }
   };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const correctPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'blosoom2024';
+    if (password === correctPassword) {
+      sessionStorage.setItem('auth', 'true');
+      setIsAuthenticated(true);
+      setLoginError('');
+    } else {
+      setLoginError('Incorrect password');
+      setPassword('');
+    }
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-ivory flex flex-col items-center justify-center p-6 font-inter">
+        <div className="max-w-md w-full bg-white border border-border-soft rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-10 text-center">
+          <h1 className="text-3xl font-playfair italic text-charcoal mb-2">Blosoom Reverie</h1>
+          <p className="text-xs uppercase tracking-[3px] text-rose-muted font-medium mb-8">Admin Dashboard</p>
+          
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter admin password"
+                className="w-full bg-ivory-soft border border-border-soft text-charcoal px-4 py-3 rounded-xl focus:outline-none focus:border-rose-muted transition-colors text-center placeholder:text-text-sand/50"
+                autoFocus
+              />
+              {loginError && <p className="text-red-500 text-xs mt-2">{loginError}</p>}
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-charcoal text-ivory text-sm font-medium py-3 rounded-xl hover:bg-charcoal-deep transition-all duration-300 shadow-sm"
+            >
+              Access Dashboard
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
