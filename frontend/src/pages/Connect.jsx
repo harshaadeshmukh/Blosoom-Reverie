@@ -262,7 +262,7 @@ export default function Connect() {
           </div>
           <div>
             <div className="text-[9px] tracking-[3px] text-rose uppercase mb-2">Location</div>
-            <p className="text-[13px] font-light text-text-muted">Pimpri, Maharashtra, India</p>
+            <p className="text-[13px] font-light text-text-muted">Pune, Maharashtra, India</p>
           </div>
         </div>
       </div>

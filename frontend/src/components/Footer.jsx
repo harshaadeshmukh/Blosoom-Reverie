@@ -6,7 +6,7 @@ const CONNECT = [
   { label: 'WhatsApp Us', href: 'https://wa.me/91XXXXXXXXXX' },
   { label: 'Pinterest', href: 'https://pinterest.com' },
 ];
-const FIND = ['blosoomreverie.gifts', 'Pimpri, Maharashtra', 'India'];
+const FIND = ['blosoomreverie.gifts', 'Pune, Maharashtra', 'India'];
 
 const ROUTE_MAP = {
   Home: '/',
@@ -30,7 +30,7 @@ export default function Footer() {
               Crafted with love · Wrapped in memories
             </div>
             <p className="text-[11px] font-light text-text-sand leading-[1.8]">
-              A handmade gifting studio based in Pimpri, Maharashtra. Every bouquet is made by
+              A handmade gifting studio based in Pune, Maharashtra. Every bouquet is made by
               hand, built around your story, and wrapped with intention.
             </p>
           </div>

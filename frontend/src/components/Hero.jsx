@@ -18,7 +18,7 @@ export default function Hero() {
 
         <div className="flex items-center justify-center gap-2.5 mb-5 opacity-0 animate-fade-in [animation-delay:0.1s]">
           <span className="h-px bg-rose animate-line-grow" style={{ width: '28px' }} />
-          <span className="text-[9px] tracking-[4px] text-rose uppercase">Pimpri · Since 2024</span>
+          <span className="text-[9px] tracking-[4px] text-rose uppercase">Pune · Since 2024</span>
         </div>
 
         <h1 className="font-playfair text-[34px] sm:text-[44px] md:text-[52px] italic font-normal text-charcoal leading-[1.12] mb-5

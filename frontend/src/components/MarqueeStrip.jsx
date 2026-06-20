@@ -4,7 +4,7 @@ const ITEMS = [
   'Foil Balloon Toppers',
   'Printed Memory Sticks',
   'Evil Eye & Theme Cutouts',
-  'Handcrafted in Pimpri',
+  'Handcrafted in Pune',
   'Black Paper Signature Wraps',
   'Birthdays · Anniversaries · Milestones',
   'Made Specifically For Them',

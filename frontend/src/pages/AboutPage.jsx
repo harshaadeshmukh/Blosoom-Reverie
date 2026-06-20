@@ -5,7 +5,7 @@ const PILLARS = [
   {
     index: 'i.',
     title: 'The beginning',
-    body: 'Blosoom Reverie was born in Pimpri in 2024 — not from a shop or a supplier, but from a single observation: the most meaningful gifts are ones that could only have come from you.',
+    body: 'Blosoom Reverie was born in Pune in 2024 — not from a shop or a supplier, but from a single observation: the most meaningful gifts are ones that could only have come from you.',
   },
   {
     index: 'ii.',
@@ -59,7 +59,7 @@ export default function AboutPage() {
             </h1>
           </div>
           <p className="reveal delay-100 text-[14px] font-light text-text-muted leading-[2] pb-2">
-            We are a small, handmade gifting studio based in Pimpri, Maharashtra. We work with
+            We are a small, handmade gifting studio based in Pune, Maharashtra. We work with
             personal photographs, stickers, notes and ribbons — building them into bouquets that
             feel like a hug from someone who knows you completely.
           </p>
