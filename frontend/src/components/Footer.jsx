@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const NAV_LINKS = ['Home', 'Custom Orders', 'Review'];
+const NAV_LINKS = ['Home', 'Order Now', 'Review'];
 const CONNECT = [
   { label: 'Instagram', href: 'https://instagram.com/blossomreverie.gifts' },
   { label: 'WhatsApp Us', href: 'https://wa.me/918625902160' },
@@ -9,7 +9,7 @@ const FIND = ['blosoomreverie.gifts', 'Pune, Maharashtra', 'India'];
 
 const ROUTE_MAP = {
   Home: '/',
-  'Custom Orders': '/custom-order',
+  'Order Now': '/custom-order',
   'Review': '/feedback',
 };
 

@@ -12,7 +12,6 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { label: 'Custom Orders', to: '/custom-order' },
     { label: 'Reviews', to: '/connect' },
   ];
 
