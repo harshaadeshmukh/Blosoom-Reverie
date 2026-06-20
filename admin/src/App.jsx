@@ -97,6 +97,11 @@ export default function App() {
     }
   };
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('auth');
+    setIsAuthenticated(false);
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
     const correctPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'blosoom2024';
@@ -164,8 +169,16 @@ export default function App() {
         <div className="font-playfair text-2xl italic tracking-wide">
           Blosoom Reverie
         </div>
-        <div className="text-[10px] tracking-[3px] text-rose-muted uppercase font-medium">
-          Admin Dashboard
+        <div className="flex items-center gap-6">
+          <div className="text-[10px] tracking-[3px] text-rose-muted uppercase font-medium hidden sm:block">
+            Admin Dashboard
+          </div>
+          <button 
+            onClick={handleLogout}
+            className="text-[10px] tracking-[2px] uppercase font-semibold text-text-sand hover:text-ivory transition-colors"
+          >
+            Logout
+          </button>
         </div>
       </nav>
 
