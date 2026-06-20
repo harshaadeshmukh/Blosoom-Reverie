@@ -10,7 +10,7 @@ const FIND = ['blosoomreverie.gifts', 'Pune, Maharashtra', 'India'];
 const ROUTE_MAP = {
   Home: '/',
   'Order Now': '/custom-order',
-  'Review': '/feedback',
+  'Review': '/connect',
 };
 
 export default function Footer() {
