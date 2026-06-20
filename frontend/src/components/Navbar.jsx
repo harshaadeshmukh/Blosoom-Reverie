@@ -12,9 +12,7 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { label: 'Collections', to: '/collections' },
     { label: 'Custom Orders', to: '/custom-order' },
-    { label: 'Our Story', to: '/our-story' },
     { label: 'Reviews', to: '/connect' },
   ];
 

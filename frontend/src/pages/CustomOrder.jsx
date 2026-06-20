@@ -13,13 +13,7 @@ const BUDGET_RANGES = [
   '₹3,500+',
 ];
 
-import { COLLECTIONS as DATA_COLLECTIONS } from '../data/collections';
 
-const COLLECTIONS = [
-  { id: '', label: 'Select a collection (optional)' },
-  ...DATA_COLLECTIONS.map(c => ({ id: c.slug, label: c.name })),
-  { id: 'signature', label: 'The Signature (Fully Custom)' },
-];
 
 /* ─── Petals config ──────────────────────────────────────────────────── */
 const PETALS = [
@@ -146,7 +140,6 @@ export default function CustomOrder() {
     name: '',
     contact: '',
     phone: '',
-    collection_id: '',
     occasion: '',
     photo_count: '',
     message: '',
@@ -277,22 +270,8 @@ export default function CustomOrder() {
               </div>
             </div>
 
-            {/* Row 2: Collection + Occasion */}
+            {/* Row 2: Occasion */}
             <div className="animate-fade-in grid sm:grid-cols-2 gap-6">
-              <div>
-                <label className={labelCls}>Collection</label>
-                <select
-                  id="order-collection"
-                  name="collection_id"
-                  value={form.collection_id}
-                  onChange={handleChange}
-                  className={`${inputCls} cursor-pointer`}
-                >
-                  {COLLECTIONS.map((c) => (
-                    <option key={c.id} value={c.id}>{c.label}</option>
-                  ))}
-                </select>
-              </div>
               <div>
                 <label className={labelCls}>Occasion</label>
                 <select

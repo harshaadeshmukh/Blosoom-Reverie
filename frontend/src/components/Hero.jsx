@@ -38,18 +38,11 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center
                         opacity-0 animate-fade-up [animation-delay:0.55s]">
           <Link
-            to="/collections"
+            to="/custom-order"
             className="text-center bg-charcoal text-ivory text-[10px] tracking-[2.5px] px-7 py-3.5 uppercase
                        font-inter transition-all duration-300 hover:bg-rose hover:-translate-y-0.5"
           >
-            Explore Collections
-          </Link>
-          <Link
-            to="/custom-order"
-            className="text-center border border-rose-muted text-charcoal text-[10px] tracking-[2px] px-7 py-3.5 uppercase
-                       font-inter transition-all duration-300 hover:bg-charcoal hover:text-ivory hover:border-charcoal"
-          >
-            Custom Order
+            Order Now
           </Link>
         </div>
       </div>
