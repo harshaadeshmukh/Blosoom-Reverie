@@ -50,7 +50,7 @@ export default function CollectionsPage() {
               key={i}
               className="reveal group border border-border-soft bg-ivory transition-all duration-300 hover:bg-ivory-soft"
             >
-              <div className="p-6 md:p-10 grid grid-cols-1 md:grid-cols-[80px_1fr] gap-4 items-start">
+              <div className="p-6 md:p-10 grid grid-cols-1 md:grid-cols-[80px_1fr_auto] gap-4 md:gap-8 items-start">
                 <div className="font-playfair text-[11px] italic text-rose pt-1">{c.num}</div>
                 <div>
                   <h2 className="font-playfair text-[28px] italic text-charcoal mb-3">{c.name}</h2>
@@ -62,7 +62,7 @@ export default function CollectionsPage() {
                 <button
                   onClick={() => navigate('/custom-order')}
                   className="md:self-center bg-charcoal text-ivory text-[10px] tracking-[2px] px-6 py-3 uppercase
-                             font-inter transition-all duration-300 hover:bg-rose whitespace-nowrap w-full md:w-auto mt-2"
+                             font-inter transition-all duration-300 hover:bg-rose whitespace-nowrap w-full md:w-auto mt-6 md:mt-0"
                 >
                   Order This
                 </button>
