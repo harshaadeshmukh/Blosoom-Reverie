@@ -7,6 +7,7 @@ export default function App() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('pending');
   const [selectedYear, setSelectedYear] = useState('All');
+  const [expandedImage, setExpandedImage] = useState(null);
 
   const availableYears = useMemo(() => {
     const years = new Set();
@@ -196,7 +197,10 @@ export default function App() {
                     <p className="text-sm font-light text-text-muted italic flex-1">"{review.message}"</p>
                     {review.image_url && (
                       <div className="mt-6 mb-2">
-                        <div className="relative h-48 sm:h-56 w-full rounded-xl overflow-hidden group/img">
+                        <div 
+                          className="relative h-48 sm:h-56 w-full rounded-xl overflow-hidden group/img cursor-pointer"
+                          onClick={() => setExpandedImage(review.image_url.startsWith('data:') ? review.image_url : `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${review.image_url}`)}
+                        >
                           <img 
                             src={review.image_url.startsWith('data:') ? review.image_url : `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${review.image_url}`} 
                             className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-110" 
@@ -318,6 +322,29 @@ export default function App() {
           );
         })()}
       </main>
+
+      {/* Expanded Image Modal */}
+      {expandedImage && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setExpandedImage(null)}
+        >
+          <img 
+            src={expandedImage} 
+            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl cursor-default" 
+            alt="Expanded Review"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button 
+            className="absolute top-6 right-6 text-white bg-black/50 hover:bg-black/80 rounded-full p-2 transition-colors"
+            onClick={() => setExpandedImage(null)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
