@@ -49,3 +49,18 @@ async def list_reviews(limit: int = 20):
     db = get_database()
     docs = await db.reviews.find().sort("created_at", -1).limit(limit).to_list(limit)
     return [fix_id(d) for d in docs]
+
+
+from bson import ObjectId
+
+@router.delete("/{review_id}")
+async def delete_review(review_id: str):
+    db = get_database()
+    try:
+        oid = ObjectId(review_id)
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid review id")
+    result = await db.reviews.delete_one({"_id": oid})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Review not found")
+    return {"status": "deleted"}

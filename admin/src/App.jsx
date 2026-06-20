@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 export default function App() {
   const [orders, setOrders] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('pending');
@@ -24,6 +25,7 @@ export default function App() {
 
   useEffect(() => {
     fetchOrders();
+    fetchReviews();
   }, []);
 
   const fetchOrders = async () => {
@@ -38,6 +40,34 @@ export default function App() {
       console.error("Error fetching orders:", err);
       setError("Failed to load orders");
       setLoading(false);
+    }
+  };
+
+  const fetchReviews = async () => {
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_URL}/api/reviews/?limit=100`);
+      if (response.ok) {
+        const data = await response.json();
+        setReviews(data);
+      }
+    } catch (err) {
+      console.error("Error fetching reviews:", err);
+    }
+  };
+
+  const handleDeleteReview = async (reviewId) => {
+    if (!window.confirm("Are you sure you want to delete this review?")) return;
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_URL}/api/reviews/${reviewId}`, {
+        method: 'DELETE'
+      });
+      if (!response.ok) throw new Error('Failed to delete');
+      fetchReviews();
+    } catch (err) {
+      console.error("Error deleting review:", err);
+      alert("Failed to delete review");
     }
   };
 
@@ -117,6 +147,13 @@ export default function App() {
               Completed ({orders.filter(o => o.status === 'done' || o.status === 'completed').length})
               {activeTab === 'done' && <span className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-charcoal"></span>}
             </button>
+            <button 
+              onClick={() => setActiveTab('reviews')}
+              className={`pb-4 text-[11px] uppercase tracking-[2px] font-semibold transition-colors relative ${activeTab === 'reviews' ? 'text-charcoal' : 'text-text-sand hover:text-charcoal'}`}
+            >
+              Reviews ({reviews.length})
+              {activeTab === 'reviews' && <span className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-charcoal"></span>}
+            </button>
           </div>
 
           <div className="pb-3 flex items-center gap-3">
@@ -137,6 +174,40 @@ export default function App() {
         </div>
         
         {(() => {
+          if (activeTab === 'reviews') {
+            if (reviews.length === 0) {
+              return (
+                <div className="py-20 text-center border border-border-soft rounded-2xl bg-ivory-soft">
+                  <p className="text-text-dim font-light italic text-lg font-playfair">No reviews found.</p>
+                </div>
+              );
+            }
+            return (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {reviews.map((review) => (
+                  <div key={review._id} className="bg-white border border-border-soft rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-shadow">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-playfair text-xl italic text-charcoal mb-1">{review.name}</h3>
+                        <div className="text-[#C4968A] text-lg leading-none">{'★'.repeat(review.rating)}<span className="text-[#E8DDD5]">{'★'.repeat(5 - review.rating)}</span></div>
+                      </div>
+                      <button onClick={() => handleDeleteReview(review._id)} className="text-text-sand hover:text-[#8C4A40] text-[10px] uppercase tracking-[1px] transition-colors">Delete</button>
+                    </div>
+                    <p className="text-sm font-light text-text-muted italic flex-1">"{review.message}"</p>
+                    {review.image_url && (
+                      <div className="mt-2 relative h-40 rounded-lg overflow-hidden border border-border-soft bg-ivory-soft">
+                        <img src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${review.image_url}`} className="w-full h-full object-cover" alt="Review" />
+                      </div>
+                    )}
+                    <div className="text-[10px] text-text-sand pt-4 border-t border-border-soft mt-auto uppercase tracking-[1px]">
+                      {new Date(review.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          }
+
           let displayedOrders = activeTab === 'pending' 
             ? orders.filter(o => o.status !== 'done' && o.status !== 'completed')
             : orders.filter(o => o.status === 'done' || o.status === 'completed');
