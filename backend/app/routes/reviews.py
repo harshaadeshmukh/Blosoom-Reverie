@@ -22,14 +22,13 @@ async def create_review(
     message: str = Form(...),
     image: UploadFile = File(None)
 ):
+    import base64
     image_url = None
     if image and image.filename:
-        ext = os.path.splitext(image.filename)[1]
-        unique_filename = f"{uuid.uuid4().hex}{ext}"
-        file_path = os.path.join("uploads", unique_filename)
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(image.file, buffer)
-        image_url = f"/uploads/{unique_filename}"
+        contents = await image.read()
+        encoded = base64.b64encode(contents).decode("utf-8")
+        content_type = image.content_type or "image/jpeg"
+        image_url = f"data:{content_type};base64,{encoded}"
 
     db = get_database()
     doc = {

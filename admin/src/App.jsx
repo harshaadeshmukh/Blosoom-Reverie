@@ -196,7 +196,7 @@ export default function App() {
                     <p className="text-sm font-light text-text-muted italic flex-1">"{review.message}"</p>
                     {review.image_url && (
                       <div className="mt-2 relative h-40 rounded-lg overflow-hidden border border-border-soft bg-ivory-soft">
-                        <img src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${review.image_url}`} className="w-full h-full object-cover" alt="Review" />
+                        <img src={review.image_url.startsWith('data:') ? review.image_url : `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${review.image_url}`} className="w-full h-full object-cover" alt="Review" />
                       </div>
                     )}
                     <div className="text-[10px] text-text-sand pt-4 border-t border-border-soft mt-auto uppercase tracking-[1px]">

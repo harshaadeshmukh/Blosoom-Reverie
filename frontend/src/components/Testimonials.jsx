@@ -24,7 +24,7 @@ export default function Testimonials() {
             city: '',
             rating: r.rating ?? 5,
             delay: '',
-            image_url: r.image_url ? `${API_URL}${r.image_url}` : null,
+            image_url: r.image_url ? (r.image_url.startsWith('data:') ? r.image_url : `${API_URL}${r.image_url}`) : null,
           }));
 
           setReviews(formattedReviews);
