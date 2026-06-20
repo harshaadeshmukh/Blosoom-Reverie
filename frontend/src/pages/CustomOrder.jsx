@@ -103,36 +103,10 @@ function SuccessScreen({ onReset }) {
         position: 'relative',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        {/* Envelope SVG */}
+        {/* Simple Checkmark SVG */}
         <div className="ss-env">
-          <svg width="72" height="56" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Envelope body */}
-            <rect x="4" y="36" width="152" height="80" rx="8" fill="#F5EDE8" stroke="#C4968A" strokeWidth="3"/>
-            {/* Bottom V fold lines */}
-            <path d="M 4 116 L 80 72 L 156 116" stroke="#D0B8A8" strokeWidth="2"/>
-            {/* Left fold */}
-            <path d="M 4 36 L 80 72" stroke="#D0B8A8" strokeWidth="2"/>
-            {/* Right fold */}
-            <path d="M 156 36 L 80 72" stroke="#D0B8A8" strokeWidth="2"/>
-            {/* Flap (open) */}
-            <path d="M 4 36 L 80 -4 L 156 36" fill="#EDE5E0" stroke="#C4968A" strokeWidth="3" strokeLinejoin="round"/>
-            {/* Letter peeking out */}
-            <g className="ss-letter">
-              <rect x="32" y="8" width="96" height="68" rx="4" fill="#FDFAF7" stroke="#D0B8A8" strokeWidth="2"/>
-              <path d="M 46 28 h 68" stroke="#C4968A" strokeWidth="2.5" strokeLinecap="round"/>
-              <path d="M 46 40 h 52" stroke="#D0B8A8" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M 46 52 h 40" stroke="#D0B8A8" strokeWidth="2" strokeLinecap="round"/>
-            </g>
-            {/* Checkmark on flap */}
-            <polyline
-              className="ss-check"
-              points="60,18 76,34 104,6"
-              stroke="#8C4A40"
-              strokeWidth="6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-            />
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 13L9 17L19 7" stroke="#8C4A40" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
       </div>
@@ -143,8 +117,7 @@ function SuccessScreen({ onReset }) {
       </div>
 
       <p className="ss-p" style={{ fontSize: 13, fontWeight: 300, color: '#7A6460', lineHeight: 1.9, marginTop: 14, marginBottom: 32, maxWidth: 360, marginInline: 'auto' }}>
-        Thank you — we'll be in touch within <strong style={{ fontWeight: 500, color: '#8C4A40' }}>24 hours</strong> to discuss your bouquet and start
-        bringing it to life. Check your inbox! 🌸
+        Thank you — we'll reach out to you within <strong style={{ fontWeight: 500, color: '#8C4A40' }}>24 hours</strong> to discuss your bouquet and start bringing it to life.
       </p>
 
       <div className="ss-btn">
