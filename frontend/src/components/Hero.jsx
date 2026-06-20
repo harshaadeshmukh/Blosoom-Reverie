@@ -34,17 +34,7 @@ export default function Hero() {
           handcrafted, personalised, and impossible to replicate.
         </p>
 
-        {/* CTAs — stack on mobile, row on sm+ */}
-        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center
-                        opacity-0 animate-fade-up [animation-delay:0.55s]">
-          <Link
-            to="/custom-order"
-            className="text-center bg-charcoal text-ivory text-[10px] tracking-[2.5px] px-7 py-3.5 uppercase
-                       font-inter transition-all duration-300 hover:bg-rose hover:-translate-y-0.5"
-          >
-            Order Now
-          </Link>
-        </div>
+
       </div>
 
       {/* ── Mobile: horizontal polaroid strip ── */}
