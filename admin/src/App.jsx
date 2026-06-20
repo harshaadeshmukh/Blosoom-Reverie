@@ -195,8 +195,16 @@ export default function App() {
                     </div>
                     <p className="text-sm font-light text-text-muted italic flex-1">"{review.message}"</p>
                     {review.image_url && (
-                      <div className="mt-2 relative h-40 rounded-lg overflow-hidden border border-border-soft bg-ivory-soft">
-                        <img src={review.image_url.startsWith('data:') ? review.image_url : `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${review.image_url}`} className="w-full h-full object-cover" alt="Review" />
+                      <div className="mt-6 mb-2">
+                        <div className="relative h-48 sm:h-56 w-full rounded-xl overflow-hidden group/img">
+                          <img 
+                            src={review.image_url.startsWith('data:') ? review.image_url : `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${review.image_url}`} 
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-110" 
+                            alt="Review" 
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 border border-black/5 rounded-xl pointer-events-none"></div>
+                        </div>
                       </div>
                     )}
                     <div className="text-[10px] text-text-sand pt-4 border-t border-border-soft mt-auto uppercase tracking-[1px]">
