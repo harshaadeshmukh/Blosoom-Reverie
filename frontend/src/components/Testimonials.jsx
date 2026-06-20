@@ -18,11 +18,13 @@ export default function Testimonials() {
       .then((res) => res.json())
       .then((data) => {
         if (data && Array.isArray(data)) {
-          const formattedReviews = data.map((r) => ({
-            quote: r.message,
-            name: r.name,
-            city: '',
-            rating: r.rating ?? 5,
+          const formattedReviews = data
+            .filter((r) => (r.rating ?? 5) >= 3)
+            .map((r) => ({
+              quote: r.message,
+              name: r.name,
+              city: '',
+              rating: r.rating ?? 5,
             delay: '',
             image_url: r.image_url ? (r.image_url.startsWith('data:') ? r.image_url : `${API_URL}${r.image_url}`) : null,
           }));
