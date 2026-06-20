@@ -64,6 +64,12 @@ export default function Connect() {
       return;
     }
     
+    if (!reviewImage) {
+      setReviewError('Please upload a photo of your beautiful bouquet.');
+      setReviewStatus('error');
+      return;
+    }
+    
     setReviewStatus('loading');
     setReviewError('');
     try {
@@ -189,7 +195,7 @@ export default function Connect() {
                 </div>
 
                 <div>
-                  <label className={labelCls}>Add a Photo (Optional)</label>
+                  <label className={labelCls}>Add a Photo (Required)</label>
                   <div className="mt-3 border-2 border-dashed border-[#D0B8A8] hover:border-charcoal transition-colors bg-white/50 p-8 text-center relative group rounded-md">
                     <input 
                       type="file" 
