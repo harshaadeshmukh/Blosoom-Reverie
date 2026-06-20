@@ -72,6 +72,7 @@ export default function App() {
       });
       if (!response.ok) throw new Error('Failed to delete');
       fetchReviews();
+      alert("Review deleted successfully!");
     } catch (err) {
       console.error("Error deleting review:", err);
       alert("Failed to delete review");
@@ -88,6 +89,7 @@ export default function App() {
       });
       if (!response.ok) throw new Error('Failed to toggle visibility');
       fetchReviews();
+      alert("Review visibility updated successfully!");
     } catch (err) {
       console.error("Error toggling review visibility:", err);
       alert("Failed to update review visibility");
@@ -278,8 +280,8 @@ export default function App() {
                         <div className="text-[#C4968A] text-lg leading-none">{'★'.repeat(review.rating)}<span className="text-[#E8DDD5]">{'★'.repeat(5 - review.rating)}</span></div>
                       </div>
                       <div className="flex flex-col gap-2 items-end">
-                        <button onClick={() => handleDeleteReview(review._id)} className="text-text-sand hover:text-[#8C4A40] text-[10px] uppercase tracking-[1px] transition-colors">Delete</button>
-                        <button onClick={() => handleToggleVisibility(review._id, review.is_visible)} className="text-text-sand hover:text-charcoal text-[10px] uppercase tracking-[1px] transition-colors">
+                        <button onClick={() => handleDeleteReview(review._id)} className="border border-[#8C4A40]/30 text-[#8C4A40] hover:bg-[#8C4A40] hover:text-white px-3 py-1.5 rounded-md text-[10px] uppercase tracking-[1px] transition-colors font-medium">Delete</button>
+                        <button onClick={() => handleToggleVisibility(review._id, review.is_visible)} className="border border-charcoal/30 text-charcoal hover:bg-charcoal hover:text-white px-3 py-1.5 rounded-md text-[10px] uppercase tracking-[1px] transition-colors font-medium">
                           {isVisible ? 'Hide' : 'Show'}
                         </button>
                       </div>
