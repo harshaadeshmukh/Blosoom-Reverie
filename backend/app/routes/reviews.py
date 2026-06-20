@@ -3,7 +3,8 @@ from datetime import datetime, timezone
 import shutil
 import os
 import uuid
-
+from pydantic import BaseModel
+from bson import ObjectId
 from ..database import get_database
 from ..models.review import ReviewCreate
 
@@ -44,13 +45,30 @@ async def create_review(
 
 
 @router.get("/")
-async def list_reviews(limit: int = 20):
+async def list_reviews(limit: int = 20, public: bool = False):
     db = get_database()
-    docs = await db.reviews.find().sort("created_at", -1).limit(limit).to_list(limit)
+    query = {}
+    if public:
+        query = {"is_visible": {"$ne": False}}
+    docs = await db.reviews.find(query).sort("created_at", -1).limit(limit).to_list(limit)
     return [fix_id(d) for d in docs]
 
 
-from bson import ObjectId
+class VisibilityUpdate(BaseModel):
+    is_visible: bool
+
+@router.patch("/{review_id}/visibility")
+async def update_visibility(review_id: str, payload: VisibilityUpdate):
+    db = get_database()
+    try:
+        oid = ObjectId(review_id)
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid review id")
+    result = await db.reviews.update_one({"_id": oid}, {"$set": {"is_visible": payload.is_visible}})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Review not found")
+    return {"status": "updated", "is_visible": payload.is_visible}
+
 
 @router.delete("/{review_id}")
 async def delete_review(review_id: str):

@@ -14,7 +14,7 @@ export default function Testimonials() {
 
   useEffect(() => {
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-    fetch(`${API_URL}/api/reviews/`)
+    fetch(`${API_URL}/api/reviews/?public=true`)
       .then((res) => res.json())
       .then((data) => {
         if (data && Array.isArray(data)) {

@@ -77,6 +77,23 @@ export default function App() {
       alert("Failed to delete review");
     }
   };
+  const handleToggleVisibility = async (reviewId, currentVisibility) => {
+    try {
+      const newVisibility = currentVisibility === false ? true : false; // Default is true if undefined
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_URL}/api/reviews/${reviewId}/visibility`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ is_visible: newVisibility })
+      });
+      if (!response.ok) throw new Error('Failed to toggle visibility');
+      fetchReviews();
+    } catch (err) {
+      console.error("Error toggling review visibility:", err);
+      alert("Failed to update review visibility");
+    }
+  };
+
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
@@ -248,14 +265,24 @@ export default function App() {
             }
             return (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {reviews.map((review) => (
-                  <div key={review._id} className="bg-white border border-border-soft rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-shadow">
+                {reviews.map((review) => {
+                  const isVisible = review.is_visible !== false;
+                  return (
+                  <div key={review._id} className={`bg-white border border-border-soft rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all ${!isVisible ? 'opacity-50 grayscale-[50%]' : ''}`}>
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-playfair text-xl italic text-charcoal mb-1">{review.name}</h3>
+                        <h3 className="font-playfair text-xl italic text-charcoal mb-1">
+                          {review.name}
+                          {!isVisible && <span className="ml-2 text-[10px] bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full not-italic tracking-wider uppercase">Hidden</span>}
+                        </h3>
                         <div className="text-[#C4968A] text-lg leading-none">{'★'.repeat(review.rating)}<span className="text-[#E8DDD5]">{'★'.repeat(5 - review.rating)}</span></div>
                       </div>
-                      <button onClick={() => handleDeleteReview(review._id)} className="text-text-sand hover:text-[#8C4A40] text-[10px] uppercase tracking-[1px] transition-colors">Delete</button>
+                      <div className="flex flex-col gap-2 items-end">
+                        <button onClick={() => handleDeleteReview(review._id)} className="text-text-sand hover:text-[#8C4A40] text-[10px] uppercase tracking-[1px] transition-colors">Delete</button>
+                        <button onClick={() => handleToggleVisibility(review._id, review.is_visible)} className="text-text-sand hover:text-charcoal text-[10px] uppercase tracking-[1px] transition-colors">
+                          {isVisible ? 'Hide' : 'Show'}
+                        </button>
+                      </div>
                     </div>
                     <p className="text-sm font-light text-text-muted italic flex-1">"{review.message}"</p>
                     {review.image_url && (
@@ -278,7 +305,8 @@ export default function App() {
                       {new Date(review.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             );
           }
