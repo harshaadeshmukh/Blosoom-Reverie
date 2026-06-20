@@ -46,3 +46,8 @@ async def shutdown():
 @app.get("/api/health")
 async def health_check():
     return {"status": "ok", "service": "Blosoom Reverie API"}
+
+
+@app.get("/")
+async def root():
+    return {"status": "online", "message": "Blosoom Reverie API is running. Use the frontend application to interact with this service."}
