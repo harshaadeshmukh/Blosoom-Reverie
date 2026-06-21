@@ -4,6 +4,7 @@ import TestimonialCard from './TestimonialCard';
 export default function Testimonials() {
   const ref = useRef(null);
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
   const scrollContainerRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -61,7 +62,8 @@ export default function Testimonials() {
           setReviews(formattedReviews);
         }
       })
-      .catch((err) => console.error('Failed to fetch reviews:', err));
+      .catch((err) => console.error('Failed to fetch reviews:', err))
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -110,7 +112,14 @@ export default function Testimonials() {
         </div>
 
         <div className="mt-10 overflow-hidden pt-6 pb-0">
-          {reviews.length > 0 ? (
+          {loading ? (
+            <div className="text-center py-20 bg-charcoal flex flex-col gap-3 items-center">
+              <div className="w-8 h-8 rounded-full border-2 border-rose-muted/20 border-t-rose-muted animate-spin"></div>
+              <p className="text-rose-muted italic font-playfair text-lg animate-pulse tracking-wide mt-2">
+                Loading reviews...
+              </p>
+            </div>
+          ) : reviews.length > 0 ? (
             <>
               <style>
                 {`
@@ -139,8 +148,13 @@ export default function Testimonials() {
               </div>
             </>
           ) : (
-            <div className="text-center py-20 bg-charcoal text-text-muted italic font-playfair">
-              No reviews yet. Be the first to leave one!
+            <div className="text-center py-20 bg-charcoal flex flex-col gap-3 items-center">
+              <p className="text-text-warm italic font-playfair text-2xl mt-2">
+                Be the first to share your experience.
+              </p>
+              <p className="text-xs tracking-widest text-rose-muted uppercase mt-2">
+                Your kind words mean the world to us
+              </p>
             </div>
           )}
         </div>

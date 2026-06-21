@@ -37,7 +37,8 @@ async def create_review(
         "rating": rating,
         "message": message,
         "image_url": image_url,
-        "created_at": datetime.now(timezone.utc)
+        "created_at": datetime.now(timezone.utc),
+        "is_visible": False
     }
     result = await db.reviews.insert_one(doc)
     created = await db.reviews.find_one({"_id": result.inserted_id})

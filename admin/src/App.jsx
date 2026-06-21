@@ -8,6 +8,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('pending');
   const [selectedYear, setSelectedYear] = useState('All');
   const [expandedImage, setExpandedImage] = useState(null);
+  const [reviewFilter, setReviewFilter] = useState('All');
   
   const [isAuthenticated, setIsAuthenticated] = useState(sessionStorage.getItem('auth') === 'true');
   const [password, setPassword] = useState('');
@@ -81,18 +82,29 @@ export default function App() {
   const handleToggleVisibility = async (reviewId, currentVisibility) => {
     try {
       const newVisibility = currentVisibility === false ? true : false; // Default is true if undefined
+      
+      // Optimistic update for instant speed
+      setReviews(prev => prev.map(r => r._id === reviewId ? { ...r, is_visible: newVisibility } : r));
+      if (newVisibility === true) {
+        setReviewFilter('Shown');
+      } else {
+        setReviewFilter('Hidden');
+      }
+
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       const response = await fetch(`${API_URL}/api/reviews/${reviewId}/visibility`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ is_visible: newVisibility })
       });
-      if (!response.ok) throw new Error('Failed to toggle visibility');
+      if (!response.ok) {
+        fetchReviews(); // Revert on error
+        throw new Error('Failed to toggle visibility');
+      }
+      // Silently fetch in background to ensure sync without blocking UI
       fetchReviews();
-      alert("Review visibility updated successfully!");
     } catch (err) {
       console.error("Error toggling review visibility:", err);
-      alert("Failed to update review visibility");
     }
   };
 
@@ -258,6 +270,9 @@ export default function App() {
         
         {(() => {
           if (activeTab === 'reviews') {
+            const shownCount = reviews.filter(r => r.is_visible !== false).length;
+            const hiddenCount = reviews.length - shownCount;
+
             if (reviews.length === 0) {
               return (
                 <div className="py-20 text-center border border-border-soft rounded-2xl bg-ivory-soft">
@@ -266,8 +281,30 @@ export default function App() {
               );
             }
             return (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {reviews.map((review) => {
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-wrap gap-4 text-[10px] uppercase tracking-[1.5px] font-semibold">
+                  <button 
+                    onClick={() => setReviewFilter('All')}
+                    className={`px-4 py-2.5 rounded-lg shadow-sm flex items-center gap-2 transition-all hover:shadow-md ${reviewFilter === 'All' ? 'bg-charcoal text-ivory' : 'bg-white border border-border-soft text-charcoal'}`}>
+                    Total <span className={`px-2 py-0.5 rounded-md ${reviewFilter === 'All' ? 'bg-ivory/20 text-ivory' : 'bg-ivory-soft text-charcoal-deep'}`}>{reviews.length}</span>
+                  </button>
+                  <button 
+                    onClick={() => setReviewFilter('Shown')}
+                    className={`px-4 py-2.5 rounded-lg shadow-sm flex items-center gap-2 transition-all hover:shadow-md ${reviewFilter === 'Shown' ? 'bg-charcoal text-ivory' : 'bg-white border border-charcoal/30 text-charcoal'}`}>
+                    Shown <span className={`px-2 py-0.5 rounded-md ${reviewFilter === 'Shown' ? 'bg-ivory/20 text-ivory' : 'bg-charcoal/10 text-charcoal'}`}>{shownCount}</span>
+                  </button>
+                  <button 
+                    onClick={() => setReviewFilter('Hidden')}
+                    className={`px-4 py-2.5 rounded-lg shadow-sm flex items-center gap-2 transition-all hover:shadow-md ${reviewFilter === 'Hidden' ? 'bg-charcoal text-ivory opacity-100 grayscale-0' : 'bg-white border border-border-soft text-text-dim grayscale opacity-80'}`}>
+                    Hidden <span className={`px-2 py-0.5 rounded-md ${reviewFilter === 'Hidden' ? 'bg-ivory/20 text-ivory' : 'bg-ivory-soft'}`}>{hiddenCount}</span>
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {reviews.filter(r => {
+                  if (reviewFilter === 'Shown') return r.is_visible !== false;
+                  if (reviewFilter === 'Hidden') return r.is_visible === false;
+                  return true;
+                }).map((review) => {
                   const isVisible = review.is_visible !== false;
                   return (
                   <div key={review._id} className={`bg-white border border-border-soft rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all ${!isVisible ? 'opacity-50 grayscale-[50%]' : ''}`}>
@@ -310,6 +347,7 @@ export default function App() {
                   );
                 })}
               </div>
+            </div>
             );
           }
 
