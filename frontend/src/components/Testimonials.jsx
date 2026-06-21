@@ -101,10 +101,10 @@ export default function Testimonials() {
           
           {reviews.length > 0 && (
             <div className="flex gap-3 pb-2">
-              <button onClick={() => scroll('left')} className="w-10 h-10 rounded-full border border-rose-muted/50 flex items-center justify-center text-rose-muted hover:bg-rose-muted hover:text-charcoal transition-colors">
+              <button aria-label="Scroll left" onClick={() => scroll('left')} className="w-10 h-10 rounded-full border border-rose-muted/50 flex items-center justify-center text-rose-muted hover:bg-rose-muted hover:text-charcoal transition-colors">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
               </button>
-              <button onClick={() => scroll('right')} className="w-10 h-10 rounded-full border border-rose-muted/50 flex items-center justify-center text-rose-muted hover:bg-rose-muted hover:text-charcoal transition-colors">
+              <button aria-label="Scroll right" onClick={() => scroll('right')} className="w-10 h-10 rounded-full border border-rose-muted/50 flex items-center justify-center text-rose-muted hover:bg-rose-muted hover:text-charcoal transition-colors">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
               </button>
             </div>

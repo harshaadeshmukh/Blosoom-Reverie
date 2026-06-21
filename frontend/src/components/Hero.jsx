@@ -40,7 +40,7 @@ export default function Hero() {
             className={`absolute bg-white p-2 pb-5 md:p-3 md:pb-8 shadow-[0_8px_20px_rgba(44,26,26,0.12)] rounded-sm ${p.anim} ${p.cls}`}
             style={{ animationDelay: p.delay }}
           >
-            <img src={p.src} alt="" className="block w-full h-full object-cover rounded-sm" loading="lazy" />
+            <img src={p.src} alt="" className="block w-full h-full object-cover rounded-sm" fetchPriority={i < 2 ? "high" : "auto"} />
             <div className="absolute bottom-1 md:bottom-2 left-0 right-0 text-center font-playfair text-[9px] md:text-[13px] italic text-text-dim">{p.cap}</div>
           </div>
         ))}
