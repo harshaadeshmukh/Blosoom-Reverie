@@ -55,14 +55,18 @@ export default function Process() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-12 border-t border-border-soft">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
           {STEPS.map((s, i) => (
-            <ProcessStep
-              key={i}
-              num={s.num}
-              title={s.title}
-              body={s.body}
-            />
+            <div 
+              key={i} 
+              className={`reveal delay-${(i + 1) * 100}`}
+            >
+              <ProcessStep
+                num={s.num}
+                title={s.title}
+                body={s.body}
+              />
+            </div>
           ))}
         </div>
       </div>

@@ -70,7 +70,7 @@ export default {
         'float-c':      'floatC 6.5s ease-in-out infinite',
         'float-d':      'floatD 7.5s ease-in-out infinite',
         'drift-ribbon': 'driftRibbon 5s ease-in-out infinite',
-        'marquee':      'marqueeScroll 20s linear infinite',
+        'marquee':      'marqueeScroll 120s linear infinite',
         'line-grow':    'lineGrow 1s ease 0.5s both',
         'fade-up':      'fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards',
         'fade-in':      'fadeIn 1s ease forwards',

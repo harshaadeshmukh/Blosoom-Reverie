@@ -17,7 +17,7 @@ export default function MarqueeStrip() {
 
   return (
     <div className="bg-blush py-4 overflow-hidden border-t border-b border-border-soft">
-      <div className="flex w-max animate-marquee">
+      <div className="flex w-max animate-marquee" style={{ animationDuration: '50s' }}>
         {all.map((item, i) => (
           <span key={i} className="flex items-center">
             <span className="text-[10px] tracking-[3.5px] text-text-muted uppercase px-7 whitespace-nowrap font-light">

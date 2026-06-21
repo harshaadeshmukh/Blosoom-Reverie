@@ -83,7 +83,7 @@ export default function Testimonials() {
   }, [reviews]);
 
   return (
-    <section ref={ref} className="bg-charcoal py-20 md:py-28 px-6 md:px-10 overflow-hidden">
+    <section ref={ref} className="bg-charcoal pt-8 pb-10 md:pt-10 md:pb-10 px-6 md:px-10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="reveal flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-2">
           <div>
@@ -109,7 +109,7 @@ export default function Testimonials() {
           )}
         </div>
 
-        <div className="mt-10 overflow-hidden py-6">
+        <div className="mt-10 overflow-hidden pt-6 pb-0">
           {reviews.length > 0 ? (
             <>
               <style>
@@ -125,15 +125,15 @@ export default function Testimonials() {
               </style>
               <div
                 ref={scrollContainerRef}
-                className="flex items-stretch gap-6 px-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 -mx-6"
+                className="flex items-stretch gap-6 px-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4 -mx-6"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onTouchStart={() => setIsHovered(true)}
                 onTouchEnd={() => setIsHovered(false)}
               >
                 {reviews.map((t, i) => (
-                  <div key={i} className="w-[260px] md:w-[360px] flex-shrink-0 snap-center">
-                    <TestimonialCard {...t} />
+                  <div key={i} className="w-[300px] md:w-[360px] flex-shrink-0 snap-center">
+                    <TestimonialCard {...t} index={i} />
                   </div>
                 ))}
               </div>

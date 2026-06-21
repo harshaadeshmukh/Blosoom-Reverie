@@ -1,8 +1,35 @@
-export default function TestimonialCard({ quote, name, city, image_url, rating = 5 }) {
+import { useEffect, useRef, useState } from 'react';
+
+export default function TestimonialCard({ quote, name, city, image_url, rating = 5, index = 0 }) {
   const clampedRating = Math.min(5, Math.max(0, Math.round(rating)));
+  const cardRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const staggerMs = Math.min(index % 4, 3) * 90;
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const t = setTimeout(() => setIsVisible(true), staggerMs);
+          observer.unobserve(el);
+          return () => clearTimeout(t);
+        }
+      },
+      { threshold: 0.35, rootMargin: '0px -40px 0px -40px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [staggerMs]);
 
   return (
-    <div className="bg-charcoal-mid p-6 md:p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_24px_rgba(26,15,15,0.4)] flex flex-col gap-5 md:gap-6 border border-white/5 h-full">
+    <div
+      ref={cardRef}
+      className={`bg-charcoal-mid p-6 md:p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_24px_rgba(26,15,15,0.4)] flex flex-col gap-5 md:gap-6 border border-white/5 h-full
+        ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+      style={{ transitionProperty: 'opacity, transform, box-shadow', transitionDuration: isVisible ? '650ms' : '0ms', transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+    >
 
       {/* Stars */}
       <div className="flex items-center gap-1.5">
@@ -23,7 +50,7 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
 
       {/* Image */}
       {image_url && (
-        <div className="w-full aspect-[4/5] overflow-hidden rounded-xl relative mt-2 shrink-0">
+        <div className="w-full h-[320px] md:h-[400px] overflow-hidden rounded-xl relative mt-2 shrink-0">
           <img
             src={image_url}
             alt={`${name}'s gift`}

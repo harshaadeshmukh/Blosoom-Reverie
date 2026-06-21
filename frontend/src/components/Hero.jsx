@@ -1,34 +1,29 @@
 import { Link } from 'react-router-dom';
 
 const POLAROIDS = [
-  { src: 'https://images.unsplash.com/photo-1529390079861-591de354faf5?w=200&h=240&fit=crop', cap: '2023',   anim: 'animate-float-a', delay: '0s',   cls: 'w-[100px] h-[118px] left-[8%]  top-[6%]'  },
-  { src: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=200&h=240&fit=crop', cap: 'us',     anim: 'animate-float-b', delay: '0.4s', cls: 'w-[84px]  h-[100px] left-[26%] top-[32%]' },
-  { src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=240&fit=crop', cap: 'forever',anim: 'animate-float-c', delay: '0.8s', cls: 'w-[96px]  h-[114px] left-[42%] top-[2%]'  },
-  { src: 'https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?w=200&h=240&fit=crop', cap: 'friends',anim: 'animate-float-d', delay: '0.2s', cls: 'w-[88px]  h-[104px] left-[58%] top-[28%]' },
-  { src: 'https://images.unsplash.com/photo-1543807535-eceef0bc6599?w=200&h=240&fit=crop', cap: 'love',   anim: 'animate-float-a', delay: '1.1s', cls: 'w-[100px] h-[118px] left-[75%] top-[4%]'  },
-  { src: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=200&h=240&fit=crop', cap: 'always', anim: 'animate-float-b', delay: '0.6s', cls: 'w-[80px]  h-[96px]  left-[88%] top-[36%]' },
+  { src: '/images/bouquet1.jpg', cap: 'custom', anim: 'animate-float-a', delay: '0s', cls: 'w-[70px] md:w-[160px] h-[82px] md:h-[190px] left-[2%] md:left-[8%]  top-[6%]' },
+  { src: '/images/bouquet2.jpg', cap: 'birthday', anim: 'animate-float-b', delay: '0.4s', cls: 'w-[60px] md:w-[134px]  h-[72px] md:h-[160px] left-[18%] md:left-[24%] top-[25%]' },
+  { src: '/images/bouquet3.jpg', cap: '21st', anim: 'animate-float-c', delay: '0.8s', cls: 'w-[66px] md:w-[154px]  h-[78px] md:h-[182px] left-[35%] md:left-[39%] top-[2%]' },
+  { src: '/images/bouquet4.jpg', cap: 'love', anim: 'animate-float-d', delay: '0.2s', cls: 'w-[60px] md:w-[140px]  h-[72px] md:h-[166px] left-[52%] md:left-[56%] top-[22%]' },
+  { src: '/images/bouquet3.jpg', cap: 'flowers', anim: 'animate-float-a', delay: '1.1s', cls: 'w-[70px] md:w-[160px] h-[82px] md:h-[190px] left-[68%] md:left-[73%] top-[4%]' },
+  { src: '/images/bouquet2.jpg', cap: 'forever', anim: 'animate-float-b', delay: '0.6s', cls: 'w-[56px] md:w-[128px]  h-[68px] md:h-[154px]  left-[82%] md:left-[86%] top-[20%]' },
 ];
 
 export default function Hero() {
   return (
-    <section className="bg-ivory-soft pt-20 pb-0 relative overflow-hidden">
+    <section className="bg-ivory-soft pt-24 md:pt-16 pb-0 relative overflow-hidden">
 
       {/* ── Hero text ── */}
       <div className="text-center max-w-2xl mx-auto px-4 relative z-10">
 
-        <div className="flex items-center justify-center gap-2.5 mb-5 opacity-0 animate-fade-in [animation-delay:0.1s]">
-          <span className="h-px bg-rose animate-line-grow" style={{ width: '28px' }} />
-          <span className="text-[9px] tracking-[4px] text-rose uppercase">Pune · Since {new Date().getFullYear()}</span>
-        </div>
-
-        <h1 className="font-playfair text-[34px] sm:text-[44px] md:text-[52px] italic font-normal text-charcoal leading-[1.12] mb-5
+        <h1 className="font-playfair text-[34px] sm:text-[44px] md:text-[52px] italic font-normal text-charcoal leading-[1.12] mb-2
                        opacity-0 animate-fade-up [animation-delay:0.25s]">
           A bouquet built
           <br />
           from <em className="not-italic text-rose">your</em> memories.
         </h1>
 
-        <p className="text-[13px] font-light text-text-muted leading-[1.9] mb-8 max-w-lg mx-auto
+        <p className="text-[13px] font-light text-text-muted leading-[1.9] mb-0 max-w-lg mx-auto
                       opacity-0 animate-fade-up [animation-delay:0.4s]">
           Photo bouquets, sticker arrangements and memory gifts — each one
           handcrafted, personalised, and impossible to replicate.
@@ -37,35 +32,18 @@ export default function Hero() {
 
       </div>
 
-      {/* ── Mobile: horizontal polaroid strip ── */}
-      <div className="md:hidden mt-8 overflow-x-auto flex gap-4 px-6 pb-6 snap-x snap-mandatory">
+      {/* ── Floating polaroid stage (All Devices) ── */}
+      <div className="relative h-[180px] md:h-[260px] mt-0">
         {POLAROIDS.map((p, i) => (
           <div
             key={i}
-            className="flex-shrink-0 snap-center bg-white p-1.5 pb-5 shadow-[0_6px_16px_rgba(44,26,26,0.12)] rounded-sm relative"
-            style={{ width: 76, height: 92 }}
-          >
-            <img src={p.src} alt="" className="block w-full h-full object-cover rounded-sm" loading="lazy" />
-            <div className="absolute bottom-1 left-0 right-0 text-center font-playfair text-[7px] italic text-text-dim">{p.cap}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* ── Desktop: floating polaroid stage ── */}
-      <div className="relative h-[260px] mt-6 hidden md:block">
-        {POLAROIDS.map((p, i) => (
-          <div
-            key={i}
-            className={`absolute bg-white p-2 pb-5 shadow-[0_8px_20px_rgba(44,26,26,0.12)] rounded-sm ${p.anim} ${p.cls}`}
+            className={`absolute bg-white p-2 pb-5 md:p-3 md:pb-8 shadow-[0_8px_20px_rgba(44,26,26,0.12)] rounded-sm ${p.anim} ${p.cls}`}
             style={{ animationDelay: p.delay }}
           >
             <img src={p.src} alt="" className="block w-full h-full object-cover rounded-sm" loading="lazy" />
-            <div className="absolute bottom-1 left-0 right-0 text-center font-playfair text-[9px] italic text-text-dim">{p.cap}</div>
+            <div className="absolute bottom-1 md:bottom-2 left-0 right-0 text-center font-playfair text-[9px] md:text-[13px] italic text-text-dim">{p.cap}</div>
           </div>
         ))}
-        <div className="absolute left-1/2 bottom-0 font-playfair text-[12px] italic text-rose animate-drift-ribbon origin-top">
-          — wrapped with love —
-        </div>
       </div>
     </section>
   );
