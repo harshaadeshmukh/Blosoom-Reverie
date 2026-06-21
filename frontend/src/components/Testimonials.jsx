@@ -11,7 +11,8 @@ export default function Testimonials() {
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
-      const scrollAmount = window.innerWidth > 768 ? 624 : 324;
+      // Scroll by 2 cards on desktop (624 * 2 = 1248), 1 card on mobile (324)
+      const scrollAmount = window.innerWidth > 768 ? 1248 : 324;
       
       if (direction === 'right') {
         // If near end, loop back to start
