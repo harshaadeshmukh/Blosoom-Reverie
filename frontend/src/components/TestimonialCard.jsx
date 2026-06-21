@@ -26,10 +26,11 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
   return (
     <div
       ref={cardRef}
-      className={`bg-charcoal-mid p-6 md:p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_24px_rgba(26,15,15,0.4)] flex flex-col gap-5 md:gap-6 border border-white/5 h-full
+      className={`bg-charcoal-mid p-6 md:p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_24px_rgba(26,15,15,0.4)] flex flex-col md:flex-row gap-5 md:gap-8 border border-white/5 h-full items-stretch
         ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
       style={{ transitionProperty: 'opacity, transform, box-shadow', transitionDuration: isVisible ? '650ms' : '0ms', transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
     >
+      <div className="flex flex-col flex-1 gap-5 md:gap-6">
 
       {/* Stars */}
       <div className="flex items-center gap-1.5">
@@ -48,20 +49,6 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
         </p>
       </div>
 
-      {/* Image */}
-      {image_url && (
-        <div className="w-full h-[320px] md:h-[400px] overflow-hidden rounded-xl relative mt-2 shrink-0">
-          <img
-            src={image_url}
-            alt={`${name}'s gift`}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep/50 to-transparent opacity-50 group-hover:opacity-10 transition-opacity duration-500" />
-        </div>
-      )}
-
-
-
       {/* Divider + Author */}
       <div className="mt-2">
         <div className="w-8 h-[1px] bg-rose-muted/40 mb-3 transition-all duration-500 group-hover:w-16 group-hover:bg-rose-muted" />
@@ -69,6 +56,23 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
           {name}{city ? <>&nbsp;·&nbsp;{city}</> : null}
         </div>
       </div>
+
+      </div>
+
+      {/* Image */}
+      {image_url && (
+        <div className="w-full md:w-[280px] h-[320px] md:h-auto md:min-h-[360px] overflow-hidden rounded-xl relative shrink-0">
+          <img
+            src={image_url}
+            alt={`${name}'s gift`}
+            loading="lazy"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep/50 to-transparent opacity-50 group-hover:opacity-10 transition-opacity duration-500" />
+        </div>
+      )}
+
+
 
     </div>
   );

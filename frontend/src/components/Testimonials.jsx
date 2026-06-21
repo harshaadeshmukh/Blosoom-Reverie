@@ -11,7 +11,7 @@ export default function Testimonials() {
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
-      const scrollAmount = window.innerWidth > 768 ? 384 : 284;
+      const scrollAmount = window.innerWidth > 768 ? 624 : 324;
       
       if (direction === 'right') {
         // If near end, loop back to start
@@ -141,7 +141,7 @@ export default function Testimonials() {
                 onTouchEnd={() => setIsHovered(false)}
               >
                 {reviews.map((t, i) => (
-                  <div key={i} className="w-[300px] md:w-[360px] flex-shrink-0 snap-center">
+                  <div key={i} className="w-[300px] md:w-[600px] flex-shrink-0 snap-center">
                     <TestimonialCard {...t} index={i} />
                   </div>
                 ))}
