@@ -26,7 +26,7 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
   return (
     <div
       ref={cardRef}
-      className={`bg-charcoal-mid rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_24px_rgba(26,15,15,0.4)] flex flex-col md:flex-row border border-white/5 h-full items-stretch overflow-hidden
+      className={`bg-charcoal-mid rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_24px_rgba(26,15,15,0.4)] flex flex-col-reverse md:flex-row border border-white/5 h-full items-stretch overflow-hidden
         ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
       style={{ transitionProperty: 'opacity, transform, box-shadow', transitionDuration: isVisible ? '650ms' : '0ms', transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
     >
