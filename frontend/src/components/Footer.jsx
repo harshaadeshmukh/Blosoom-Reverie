@@ -2,10 +2,14 @@ import { Link } from 'react-router-dom';
 
 const NAV_LINKS = ['Home', 'Order Now', 'Review'];
 const CONNECT = [
+  { label: 'Email', href: 'mailto:creative.studio22004@gmail.com' },
+  { label: 'WhatsApp', href: 'https://wa.me/918625902160' },
   { label: 'Instagram', href: 'https://instagram.com/blossomreverie.gifts' },
-  { label: 'WhatsApp Us', href: 'https://wa.me/918625902160' },
 ];
-const FIND = ['blosoomreverie.gifts', 'Pune, Maharashtra', 'India'];
+const FIND = [
+  { label: 'Pune, Maharashtra' },
+  { label: 'India' }
+];
 
 const ROUTE_MAP = {
   Home: '/',
@@ -49,9 +53,9 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Review Link */}
+          {/* Connect Link */}
           <div>
-            <div className="text-[9px] tracking-[3px] text-rose-muted uppercase mb-4">Reviews</div>
+            <div className="text-[9px] tracking-[3px] text-rose-muted uppercase mb-4">Connect</div>
             <div className="flex flex-col gap-2.5">
               {CONNECT.map((c) => (
                 <a
@@ -73,12 +77,24 @@ export default function Footer() {
             <div className="text-[9px] tracking-[3px] text-rose-muted uppercase mb-4">Find Us</div>
             <div className="flex flex-col gap-2.5">
               {FIND.map((f, i) => (
-                <span
-                  key={i}
-                  className="text-[12px] font-light text-rose-muted"
-                >
-                  {f}
-                </span>
+                f.href ? (
+                  <a
+                    key={i}
+                    href={f.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[12px] font-light text-rose-muted transition-all duration-300 hover:text-text-warm hover:pl-1.5"
+                  >
+                    {f.label}
+                  </a>
+                ) : (
+                  <span
+                    key={i}
+                    className="text-[12px] font-light text-rose-muted"
+                  >
+                    {f.label}
+                  </span>
+                )
               ))}
             </div>
           </div>
