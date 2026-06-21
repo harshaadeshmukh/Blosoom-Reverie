@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import DatePicker from '../components/DatePicker';
+import { COLLECTIONS } from '../data/collections';
 
 const OCCASIONS = [
   'Birthday', 'Anniversary', 'Graduation', 'Friendship', 'Proposal',
@@ -139,7 +140,7 @@ export default function CustomOrder() {
   const [form, setForm] = useState({
     name: '',
     contact: '',
-    phone: '',
+    collection_id: '',
     occasion: '',
     photo_count: '',
     message: '',
@@ -189,7 +190,7 @@ export default function CustomOrder() {
       }
       setStatus('success');
       setForm({
-        name: '', contact: '', phone: '', collection_id: '', occasion: '',
+        name: '', contact: '', collection_id: '', occasion: '',
         photo_count: '', message: '', preferred_date: '', budget_range: '',
       });
     } catch (err) {
@@ -208,7 +209,7 @@ export default function CustomOrder() {
     <div ref={ref} className="bg-ivory min-h-screen pt-24">
       {/* Header */}
       <div className="bg-ivory-soft py-12 px-6 md:px-10 border-b border-border-soft">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="reveal flex items-center gap-2.5 mb-4">
             <span className="w-5 h-px bg-rose inline-block" />
             <span className="text-[9px] tracking-[4px] text-rose uppercase">Custom Orders</span>
@@ -224,14 +225,14 @@ export default function CustomOrder() {
       </div>
 
       {/* Form */}
-      <div className="max-w-3xl mx-auto px-6 md:px-10 py-10">
+      <div className="max-w-4xl mx-auto px-6 md:px-10 py-10">
         {status === 'success' ? (
           <SuccessScreen onReset={() => setStatus('idle')} />
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Row 1: Name + Email + Phone */}
-            <div className="animate-fade-in grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-              <div>
+          <form onSubmit={handleSubmit} className="space-y-8 bg-white/40 p-6 md:p-12 border border-border-soft shadow-sm rounded-xl">
+            {/* Row 1: Name + WhatsApp */}
+            <div className="animate-fade-in grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <div className="flex flex-col justify-end">
                 <label className={labelCls}>Your Name</label>
                 <input
                   id="order-name"
@@ -243,7 +244,7 @@ export default function CustomOrder() {
                   className={inputCls}
                 />
               </div>
-              <div>
+              <div className="flex flex-col justify-end">
                 <label className={labelCls}>Primary WhatsApp Number</label>
                 <input
                   id="order-contact"
@@ -256,23 +257,26 @@ export default function CustomOrder() {
                   className={inputCls}
                 />
               </div>
-              <div>
-                <label className={labelCls}>Alternate Number (Optional)</label>
-                <input
-                  id="order-phone"
-                  type="tel"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                  placeholder="+91 9876543210"
-                  className={inputCls}
-                />
-              </div>
             </div>
 
-            {/* Row 2: Occasion */}
+            {/* Row 2: Collection + Occasion */}
             <div className="animate-fade-in grid sm:grid-cols-2 gap-6">
-              <div>
+              <div className="flex flex-col justify-end">
+                <label className={labelCls}>Collection</label>
+                <select
+                  id="order-collection"
+                  name="collection_id"
+                  value={form.collection_id}
+                  onChange={handleChange}
+                  className={`${inputCls} cursor-pointer`}
+                >
+                  <option value="">Select a collection</option>
+                  {COLLECTIONS.map((c) => (
+                    <option key={c._id} value={c._id}>{c.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex flex-col justify-end">
                 <label className={labelCls}>Occasion</label>
                 <select
                   id="order-occasion"
@@ -292,7 +296,7 @@ export default function CustomOrder() {
 
             {/* Row 3: Photo count + Preferred date */}
             <div className="animate-fade-in grid sm:grid-cols-2 gap-6">
-              <div>
+              <div className="flex flex-col justify-end">
                 <label className={labelCls}>
                   Approximate Number of Photos
                   <span className="text-[11px] text-text-muted normal-case tracking-normal block mt-1 font-medium">
@@ -312,7 +316,7 @@ export default function CustomOrder() {
                   className={inputCls}
                 />
               </div>
-              <div>
+              <div className="flex flex-col justify-end">
                 <label className={labelCls}>Preferred Delivery Date</label>
                 <DatePicker
                   id="order-date"
@@ -366,13 +370,12 @@ export default function CustomOrder() {
             )}
 
             {/* Submit */}
-            <div className="animate-fade-in">
+            <div className="animate-fade-in mt-2">
               <button
                 id="order-submit"
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full sm:w-auto bg-charcoal text-ivory text-[10px] tracking-[2.5px] px-10 py-4 uppercase rounded-md
-                           font-inter transition-all duration-300 hover:bg-rose disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-charcoal text-ivory text-[11px] tracking-[3px] py-4 uppercase rounded-md font-inter transition-all duration-300 hover:bg-rose disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {status === 'loading' ? 'Sending...' : 'Submit Order'}
               </button>

@@ -17,6 +17,21 @@
     color: #2C1A1A;
     overflow-x: hidden;
   }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #8C6A64; /* exact match to text-dim from UI palette */
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #5A3A34; /* text-muted from UI palette */
+  }
 }
 
 @layer utilities {
