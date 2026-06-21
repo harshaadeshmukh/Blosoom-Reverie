@@ -236,7 +236,7 @@ export default function CustomOrder() {
             {/* Row 1: Name + WhatsApp */}
             <div className="animate-fade-in grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div className="flex flex-col justify-end">
-                <label className={labelCls}>Your Name</label>
+                <label htmlFor="order-name" className={labelCls}>Your Name</label>
                 <input
                   id="order-name"
                   name="name"
@@ -248,7 +248,7 @@ export default function CustomOrder() {
                 />
               </div>
               <div className="flex flex-col justify-end">
-                <label className={labelCls}>Primary WhatsApp Number</label>
+                <label htmlFor="order-contact" className={labelCls}>Primary WhatsApp Number</label>
                 <input
                   id="order-contact"
                   type="tel"
@@ -265,7 +265,7 @@ export default function CustomOrder() {
             {/* Row 2: Collection + Occasion */}
             <div className="animate-fade-in grid sm:grid-cols-2 gap-6">
               <div className="flex flex-col justify-end">
-                <label className={labelCls}>Collection</label>
+                <label htmlFor="order-collection" className={labelCls}>Collection</label>
                 <select
                   id="order-collection"
                   name="collection_id"
@@ -280,7 +280,7 @@ export default function CustomOrder() {
                 </select>
               </div>
               <div className="flex flex-col justify-end">
-                <label className={labelCls}>Occasion</label>
+                <label htmlFor="order-occasion" className={labelCls}>Occasion</label>
                 <select
                   id="order-occasion"
                   name="occasion"
@@ -300,7 +300,7 @@ export default function CustomOrder() {
             {/* Row 3: Photo count + Preferred date */}
             <div className="animate-fade-in grid sm:grid-cols-2 gap-6">
               <div className="flex flex-col justify-end">
-                <label className={labelCls}>
+                <label htmlFor="order-photo-count" className={labelCls}>
                   Approximate Number of Photos
                   <span className="text-[11px] text-text-muted normal-case tracking-normal block mt-1 font-medium">
                     (You'll send photos via WhatsApp after we connect)
@@ -320,7 +320,7 @@ export default function CustomOrder() {
                 />
               </div>
               <div className="flex flex-col justify-end">
-                <label className={labelCls}>Preferred Delivery Date</label>
+                <label htmlFor="order-date" className={labelCls}>Preferred Delivery Date</label>
                 <DatePicker
                   id="order-date"
                   value={form.preferred_date}
@@ -332,8 +332,8 @@ export default function CustomOrder() {
 
             {/* Row 4: Budget */}
             <div className="animate-fade-in">
-              <label className={labelCls}>Budget Range</label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <span className={labelCls} id="budget-label">Budget Range</span>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2" role="group" aria-labelledby="budget-label">
                 {BUDGET_RANGES.map((b) => (
                   <button
                     key={b}
@@ -353,7 +353,7 @@ export default function CustomOrder() {
 
             {/* Row 5: Message */}
             <div className="animate-fade-in">
-              <label className={labelCls}>Special Notes / Message / Ideas</label>
+              <label htmlFor="order-message" className={labelCls}>Special Notes / Message / Ideas</label>
               <textarea
                 id="order-message"
                 name="message"

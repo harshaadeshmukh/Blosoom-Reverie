@@ -261,8 +261,8 @@ export default function Connect() {
               <form onSubmit={handleReviewSubmit} className="space-y-8 bg-white/40 p-6 md:p-12 border border-border-soft shadow-sm rounded-xl">
                 
                 <div className="text-center mb-8 border-b border-[#D0B8A8] pb-10">
-                  <label className="block text-[10px] tracking-[3px] font-bold text-charcoal-mid uppercase mb-5">How was your experience?</label>
-                  <div className="flex justify-center gap-3">
+                  <span id="rating-label" className="block text-[10px] tracking-[3px] font-bold text-charcoal-mid uppercase mb-5">How was your experience?</span>
+                  <div className="flex justify-center gap-3" role="group" aria-labelledby="rating-label">
                     {STARS.map((star) => {
                       const currentVal = hoverRating || reviewForm.rating;
                       const fillWidth = currentVal >= star ? '100%' : currentVal >= star - 0.5 ? '50%' : '0%';
@@ -276,6 +276,7 @@ export default function Connect() {
                             onMouseLeave={() => setHoverRating(0)}
                             className="absolute left-0 w-1/2 h-full z-10 cursor-pointer focus:outline-none"
                             title={`${star - 0.5} Stars`}
+                            aria-label={`Rate ${star - 0.5} Stars`}
                           />
                           {/* Right half clickable area */}
                           <button
@@ -285,6 +286,7 @@ export default function Connect() {
                             onMouseLeave={() => setHoverRating(0)}
                             className="absolute right-0 w-1/2 h-full z-10 cursor-pointer focus:outline-none"
                             title={`${star} Stars`}
+                            aria-label={`Rate ${star} Stars`}
                           />
                           {/* Visual star */}
                           <div className="pointer-events-none transition-transform group-hover:scale-110 drop-shadow-sm relative">
@@ -303,8 +305,9 @@ export default function Connect() {
                 </div>
 
                 <div>
-                  <label className={labelCls}>Your Name</label>
+                  <label htmlFor="review-name" className={labelCls}>Your Name</label>
                   <input
+                    id="review-name"
                     name="name"
                     value={reviewForm.name}
                     onChange={handleReviewChange}
@@ -315,8 +318,9 @@ export default function Connect() {
                 </div>
 
                 <div>
-                  <label className={labelCls}>Your Review</label>
+                  <label htmlFor="review-message" className={labelCls}>Your Review</label>
                   <textarea
+                    id="review-message"
                     name="message"
                     value={reviewForm.message}
                     onChange={handleReviewChange}
@@ -328,9 +332,10 @@ export default function Connect() {
                 </div>
 
                 <div>
-                  <label className={labelCls}>Add a Photo</label>
+                  <label htmlFor="review-image" className={labelCls}>Add a Photo</label>
                   <div className="mt-3 border-2 border-dashed border-[#D0B8A8] hover:border-charcoal transition-colors bg-white/50 p-8 text-center relative group rounded-md">
                     <input 
+                      id="review-image"
                       type="file" 
                       accept="image/*" 
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
