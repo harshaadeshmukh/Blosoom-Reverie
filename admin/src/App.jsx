@@ -310,11 +310,27 @@ export default function App() {
                   <div key={review._id} className={`bg-white border border-border-soft rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all ${!isVisible ? 'opacity-50 grayscale-[50%]' : ''}`}>
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-playfair text-xl italic text-charcoal mb-1">
+                        <h3 className="font-playfair text-2xl italic text-charcoal mb-2">
                           {review.name}
                           {!isVisible && <span className="ml-2 text-[10px] bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full not-italic tracking-wider uppercase">Hidden</span>}
                         </h3>
-                        <div className="text-[#C4968A] text-lg leading-none">{'★'.repeat(review.rating)}<span className="text-[#E8DDD5]">{'★'.repeat(5 - review.rating)}</span></div>
+                        <div className="text-3xl leading-none flex gap-[2px] items-center">
+                          {[1,2,3,4,5].map(s => {
+                            const val = review.rating;
+                            const full = val >= s;
+                            const half = !full && val >= s - 0.5;
+                            return (
+                              <span key={s} className="relative inline-block" style={{ color: '#E8DDD5' }}>
+                                ★
+                                {(full || half) && (
+                                  <span className="absolute left-0 top-0 overflow-hidden"
+                                    style={{ color: '#C4968A', width: full ? '100%' : '50%' }}>★</span>
+                                )}
+                              </span>
+                            );
+                          })}
+                          <span className="text-sm text-text-sand ml-2 font-medium self-center">{review.rating}</span>
+                        </div>
                       </div>
                       <div className="flex flex-col gap-2 items-end">
                         <button onClick={() => handleDeleteReview(review._id)} className="border border-[#8C4A40]/30 text-[#8C4A40] hover:bg-[#8C4A40] hover:text-white px-3 py-1.5 rounded-md text-[10px] uppercase tracking-[1px] transition-colors font-medium">Delete</button>

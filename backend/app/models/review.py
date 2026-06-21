@@ -5,7 +5,7 @@ from datetime import datetime
 
 class ReviewCreate(BaseModel):
     name: str
-    rating: int = Field(ge=1, le=5)
+    rating: float = Field(ge=1, le=5)
     message: str
     image_url: Optional[str] = None
 

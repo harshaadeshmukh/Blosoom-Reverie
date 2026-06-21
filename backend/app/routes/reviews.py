@@ -19,7 +19,7 @@ def fix_id(doc: dict) -> dict:
 @router.post("/", status_code=201)
 async def create_review(
     name: str = Form(...),
-    rating: int = Form(...),
+    rating: float = Form(...),
     message: str = Form(...),
     image: UploadFile = File(None)
 ):
