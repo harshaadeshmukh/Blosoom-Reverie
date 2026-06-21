@@ -41,7 +41,7 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
       </div>
 
       {/* Quote */}
-      <div className="relative">
+      <div className="relative flex-grow">
         <span className="absolute -top-5 -left-3 text-[70px] font-playfair italic text-white/[0.03] leading-none pointer-events-none select-none">"</span>
         <p className="font-playfair text-[15px] italic text-text-warm leading-[1.8] relative z-10">
           "{quote}"
