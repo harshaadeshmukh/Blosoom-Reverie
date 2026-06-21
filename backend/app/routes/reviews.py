@@ -1,4 +1,13 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Request
+from datetime import datetime, timezone
+import shutil
+import os
+import uuid
+from pydantic import BaseModel
+from bson import ObjectId
+from ..database import get_database
+from ..models.review import ReviewCreate
+from ..limiter import limiter
 from datetime import datetime, timezone
 import shutil
 import os
@@ -17,7 +26,9 @@ def fix_id(doc: dict) -> dict:
 
 
 @router.post("/", status_code=201)
+@limiter.limit("3/minute")
 async def create_review(
+    request: Request,
     name: str = Form(...),
     rating: float = Form(...),
     message: str = Form(...),
@@ -46,7 +57,8 @@ async def create_review(
 
 
 @router.get("/")
-async def list_reviews(limit: int = 20, public: bool = False):
+@limiter.limit("60/minute")
+async def list_reviews(request: Request, limit: int = 20, public: bool = False):
     db = get_database()
     query = {}
     if public:
@@ -59,7 +71,8 @@ class VisibilityUpdate(BaseModel):
     is_visible: bool
 
 @router.patch("/{review_id}/visibility")
-async def update_visibility(review_id: str, payload: VisibilityUpdate):
+@limiter.limit("30/minute")
+async def update_visibility(request: Request, review_id: str, payload: VisibilityUpdate):
     db = get_database()
     try:
         oid = ObjectId(review_id)
@@ -72,7 +85,8 @@ async def update_visibility(review_id: str, payload: VisibilityUpdate):
 
 
 @router.delete("/{review_id}")
-async def delete_review(review_id: str):
+@limiter.limit("30/minute")
+async def delete_review(request: Request, review_id: str):
     db = get_database()
     try:
         oid = ObjectId(review_id)

@@ -6,12 +6,17 @@ from datetime import datetime, timezone
 from .config import settings
 from .database import connect_db, close_db, get_database
 from .routes import orders, contact, reviews
+from slowapi.errors import RateLimitExceeded
+from slowapi import _rate_limit_exceeded_handler
+from .limiter import limiter
 
 app = FastAPI(
     title="Blosoom Reverie API",
     description="Backend for the Blosoom Reverie handmade gifting studio",
     version="1.0.0",
 )
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # CORS
 app.add_middleware(

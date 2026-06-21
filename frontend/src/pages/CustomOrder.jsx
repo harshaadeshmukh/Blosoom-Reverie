@@ -184,6 +184,9 @@ export default function CustomOrder() {
         }),
       });
       if (!res.ok) {
+        if (res.status === 429) {
+          throw new Error("We are currently processing a high volume of requests. Please wait a moment before trying again.");
+        }
         const data = await res.json();
         const errMsg = Array.isArray(data.detail) ? JSON.stringify(data.detail) : data.detail;
         throw new Error(errMsg || 'Something went wrong');

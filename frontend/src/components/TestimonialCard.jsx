@@ -33,17 +33,17 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
       <div className="flex flex-col flex-1 gap-5 md:gap-6 p-6 md:p-8">
 
       {/* Stars */}
-      <div className="flex items-center gap-0.5 md:gap-1">
+      <div className="flex items-center gap-1 md:gap-1">
         {[1, 2, 3, 4, 5].map((s) => {
           const full = clampedRating >= s;
           const half = !full && clampedRating >= s - 0.5;
           return (
-            <span key={s} className="relative inline-block text-xl md:text-2xl lg:text-3xl leading-none" style={{ color: '#3D2424', opacity: 0.35 }}>
+            <span key={s} className="relative inline-block text-3xl md:text-3xl lg:text-4xl leading-none" style={{ color: '#5C3A3A', opacity: 0.8 }}>
               ★
               {(full || half) && (
                 <span
                   className="absolute left-0 top-0 overflow-hidden whitespace-nowrap"
-                  style={{ color: '#C4968A', opacity: 1, width: full ? '100%' : '50%' }}
+                  style={{ color: '#E8B84B', opacity: 1, width: full ? '100%' : '50%' }}
                 >
                   ★
                 </span>
@@ -64,7 +64,7 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
       {/* Divider + Author */}
       <div className="mt-1 md:mt-2">
         <div className="w-6 md:w-8 h-[1px] bg-rose-muted/40 mb-2 md:mb-3 transition-all duration-500 group-hover:w-12 md:group-hover:w-16 group-hover:bg-rose-muted" />
-        <div className="text-[9px] md:text-[11px] lg:text-[12px] tracking-[1.5px] md:tracking-[2px] text-rose-muted uppercase font-inter font-medium">
+        <div className="text-[11px] md:text-[12px] lg:text-[13px] tracking-[1.5px] md:tracking-[2px] text-rose-muted uppercase font-inter font-medium">
           {name}{city ? <>&nbsp;·&nbsp;{city}</> : null}
         </div>
       </div>

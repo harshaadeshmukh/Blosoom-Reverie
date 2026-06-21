@@ -1,4 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
+from datetime import datetime, timezone
+
+from ..database import get_database
+from ..models.contact import ContactCreate
+from ..limiter import limiter
 from datetime import datetime, timezone
 
 from ..database import get_database
@@ -13,7 +18,8 @@ def fix_id(doc: dict) -> dict:
 
 
 @router.post("/", status_code=201)
-async def send_message(payload: ContactCreate):
+@limiter.limit("3/minute")
+async def send_message(request: Request, payload: ContactCreate):
     db = get_database()
     doc = payload.model_dump()
     doc["created_at"] = datetime.now(timezone.utc)

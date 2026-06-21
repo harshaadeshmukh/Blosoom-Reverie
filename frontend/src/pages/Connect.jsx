@@ -88,6 +88,9 @@ export default function Connect() {
       });
       
       if (!res.ok) {
+        if (res.status === 429) {
+          throw new Error("We are currently processing a high volume of requests. Please wait a moment before trying again.");
+        }
         const data = await res.json();
         const errMsg = Array.isArray(data.detail) ? JSON.stringify(data.detail) : data.detail;
         throw new Error(errMsg || 'Something went wrong');
@@ -285,10 +288,10 @@ export default function Connect() {
                           />
                           {/* Visual star */}
                           <div className="pointer-events-none transition-transform group-hover:scale-110 drop-shadow-sm relative">
-                            <span className="inline-block" style={{ color: '#E8DDD5' }}>★</span>
+                            <span className="inline-block" style={{ color: '#C4AFA8' }}>★</span>
                             <span
                               className="absolute left-0 top-0 overflow-hidden whitespace-nowrap inline-block"
-                              style={{ color: '#C4968A', width: fillWidth }}
+                              style={{ color: '#C9860A', width: fillWidth }}
                             >
                               ★
                             </span>
