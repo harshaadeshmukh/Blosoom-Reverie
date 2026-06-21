@@ -11,8 +11,8 @@ export default function Testimonials() {
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
-      // Scroll by 2 cards on desktop (624 * 2 = 1248), 1 card on mobile (324)
-      const scrollAmount = window.innerWidth > 768 ? 1248 : 324;
+      // Scroll by container width (which exactly fits 2 cards on desktop)
+      const scrollAmount = window.innerWidth > 768 ? container.clientWidth : 324;
       
       if (direction === 'right') {
         // If near end, loop back to start
@@ -142,7 +142,7 @@ export default function Testimonials() {
                 onTouchEnd={() => setIsHovered(false)}
               >
                 {reviews.map((t, i) => (
-                  <div key={i} className="w-[300px] md:w-[600px] flex-shrink-0 snap-center">
+                  <div key={i} className="w-[300px] md:w-[calc(50%-12px)] flex-shrink-0 snap-center md:snap-start">
                     <TestimonialCard {...t} index={i} />
                   </div>
                 ))}
