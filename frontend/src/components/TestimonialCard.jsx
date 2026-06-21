@@ -61,7 +61,7 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
 
       {/* Image */}
       {image_url && (
-        <div className="w-full md:w-[280px] h-[320px] md:h-auto md:min-h-[360px] relative shrink-0">
+        <div className="w-full md:w-[280px] h-[320px] md:h-auto md:min-h-[460px] relative shrink-0">
           <img
             src={image_url}
             alt={`${name}'s gift`}
