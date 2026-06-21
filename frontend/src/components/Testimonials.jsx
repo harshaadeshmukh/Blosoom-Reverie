@@ -36,7 +36,7 @@ export default function Testimonials() {
     // Auto scroll every 3.5 seconds
     const interval = setInterval(() => {
       scroll('right');
-    }, 3500);
+    }, 2500);
     
     return () => clearInterval(interval);
   }, [reviews, isHovered]);
