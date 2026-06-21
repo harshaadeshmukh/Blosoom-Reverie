@@ -33,31 +33,22 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
       <div className="flex flex-col flex-1 gap-5 md:gap-6 p-6 md:p-8">
 
       {/* Stars */}
-      <div className="flex items-center gap-1 md:gap-1.5">
+      <div className="flex items-center gap-0.5 md:gap-1">
         {[1, 2, 3, 4, 5].map((s) => {
           const full = clampedRating >= s;
           const half = !full && clampedRating >= s - 0.5;
-          const starPath = "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z";
           return (
-            <svg key={s} className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 drop-shadow-sm" viewBox="0 0 20 20" fill="none">
-              {half && (
-                <defs>
-                  <clipPath id={`half-${s}`}>
-                    <rect x="0" y="0" width="10" height="20" />
-                  </clipPath>
-                </defs>
-              )}
-              {/* Empty star */}
-              <path d={starPath} fill="#3D2424" opacity="0.35" />
-              {/* Filled portion */}
+            <span key={s} className="relative inline-block text-xl md:text-2xl lg:text-3xl leading-none" style={{ color: '#3D2424', opacity: 0.35 }}>
+              ★
               {(full || half) && (
-                <path
-                  d={starPath}
-                  fill="#C4968A"
-                  clipPath={half ? `url(#half-${s})` : undefined}
-                />
+                <span
+                  className="absolute left-0 top-0 overflow-hidden whitespace-nowrap"
+                  style={{ color: '#C4968A', opacity: 1, width: full ? '100%' : '50%' }}
+                >
+                  ★
+                </span>
               )}
-            </svg>
+            </span>
           );
         })}
       </div>
