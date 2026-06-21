@@ -88,14 +88,7 @@ npm run dev
 ```
 *The client app will be available at `http://localhost:5173`*
 
-### 3. Admin Setup
 
-```bash
-cd admin
-npm install
-npm run dev
-```
-*The admin dashboard will run on the port specified by Vite (usually `http://localhost:5174`)*
 
 ---
 
