@@ -11,7 +11,7 @@ const POLAROIDS = [
 
 export default function Hero() {
   return (
-    <section className="bg-ivory-soft pt-24 md:pt-28 lg:pt-32 pb-0 relative overflow-hidden">
+    <section className="bg-ivory-soft pt-24 md:pt-20 lg:pt-24 pb-0 relative overflow-hidden">
 
       {/* ── Hero text ── */}
       <div className="text-center max-w-2xl mx-auto px-4 relative z-10">
