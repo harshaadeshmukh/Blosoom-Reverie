@@ -135,7 +135,7 @@ export default function Testimonials() {
               </style>
               <div
                 ref={scrollContainerRef}
-                className="flex items-stretch gap-6 px-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4 -mx-6"
+                className="flex items-stretch gap-6 px-6 md:px-0 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4 -mx-6 md:mx-0"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onTouchStart={() => setIsHovered(true)}

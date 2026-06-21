@@ -61,14 +61,14 @@ export default function TestimonialCard({ quote, name, city, image_url, rating =
 
       {/* Image */}
       {image_url && (
-        <div className="w-full md:w-[280px] h-[320px] md:h-auto md:min-h-[400px] relative shrink-0 bg-charcoal-deep/40 flex items-center justify-center">
+        <div className="w-full md:w-[45%] lg:w-[40%] h-[320px] md:h-auto md:min-h-[460px] relative shrink-0">
           <img
             src={image_url}
             alt={`${name}'s gift`}
             loading="lazy"
-            className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep/80 via-transparent to-transparent opacity-60 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep/50 to-transparent opacity-50 group-hover:opacity-10 transition-opacity duration-500" />
         </div>
       )}
 
