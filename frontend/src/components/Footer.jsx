@@ -55,7 +55,7 @@ export default function Footer() {
 
           {/* Connect Link */}
           <div>
-            <div className="text-[9px] tracking-[3px] text-rose-muted uppercase mb-4">Connect</div>
+            <div className="text-[9px] tracking-[3px] text-rose-muted uppercase mb-4">Contact Us</div>
             <div className="flex flex-col gap-2.5">
               {CONNECT.map((c) => (
                 <a
