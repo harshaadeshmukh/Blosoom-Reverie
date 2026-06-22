@@ -111,8 +111,12 @@ function SuccessScreen({ onReset }) {
         Order received.
       </div>
 
-      <p className="ss-p" style={{ fontSize: 13, fontWeight: 300, color: '#7A6460', lineHeight: 1.9, marginTop: 14, marginBottom: 32, maxWidth: 360, marginInline: 'auto' }}>
+      <p className="ss-p" style={{ fontSize: 13, fontWeight: 300, color: '#7A6460', lineHeight: 1.9, marginTop: 14, marginBottom: 12, maxWidth: 360, marginInline: 'auto' }}>
         Thank you — we'll reach out to you within <strong style={{ fontWeight: 500, color: '#8C4A40' }}>24 hours</strong> to discuss your bouquet and start bringing it to life.
+      </p>
+
+      <p className="ss-p" style={{ fontSize: 11, fontWeight: 400, color: '#9A8478', lineHeight: 1.6, marginBottom: 32, maxWidth: 360, marginInline: 'auto' }}>
+        <em>A confirmation email has been sent. If you don't see it, please check your <strong>Spam folder</strong>.</em>
       </p>
 
       <div className="ss-btn">
