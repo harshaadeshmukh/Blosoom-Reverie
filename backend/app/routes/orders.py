@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 from ..database import get_database
 from ..models.order import OrderCreate, OrderStatusUpdate
-from ..email_service import send_order_confirmation
+from ..email_service import send_order_confirmation, send_admin_notification
 from ..limiter import limiter
 
 router = APIRouter(prefix="/api/orders", tags=["orders"])
@@ -29,6 +29,13 @@ async def create_order(request: Request, order: OrderCreate, background_tasks: B
     await send_order_confirmation(
         contact_info=order.email,
         customer_name=order.name,
+        order_details=doc
+    )
+    
+    # Send the separate admin notification
+    await send_admin_notification(
+        customer_name=order.name,
+        customer_email=order.email,
         order_details=doc
     )
     

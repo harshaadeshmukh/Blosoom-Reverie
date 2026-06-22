@@ -208,12 +208,8 @@ async def send_order_confirmation(contact_info: str, customer_name: str, order_d
     if is_email:
         recipients.append(contact_info)
         
-    # Always BCC the studio owner so they get an instant notification!
-    if settings.mail_username:
-        recipients.append(settings.mail_username)
-        
     if not recipients:
-        logging.info("No email recipients available. Customer provided phone number and no studio email configured.")
+        logging.info("No email recipients available.")
         return
 
     message = MessageSchema(
@@ -229,3 +225,90 @@ async def send_order_confirmation(contact_info: str, customer_name: str, order_d
         logging.info(f"Order confirmation email initiated for {recipients}")
     except Exception as e:
         logging.error(f"Failed to send email: {e}")
+
+async def send_admin_notification(customer_name: str, customer_email: str, order_details: dict):
+    if not settings.mail_username:
+        return
+
+    _ROW_COUNTER[0] = 0
+
+    html = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Order Alert</title>
+    </head>
+    <body style="margin:0;padding:0;background-color:#EFE9E5;font-family:Helvetica,Arial,sans-serif;">
+
+      <!-- Outer wrapper -->
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#EFE9E5;padding:40px 16px;">
+        <tr><td align="center">
+
+          <!-- Card -->
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:580px;background-color:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.08);">
+
+            <!-- HEADER BAND -->
+            <tr>
+              <td align="center" style="background-color:#2C1A1A;padding:32px 40px;">
+                <p style="font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#C4968A;margin:0;font-weight:700;">Blosoom Reverie</p>
+                <h1 style="font-family:Georgia,serif;font-size:28px;color:#FFFFFF;margin:12px 0 0 0;font-weight:400;font-style:italic;">New Order Received</h1>
+              </td>
+            </tr>
+
+            <!-- GREETING & SUMMARY -->
+            <tr>
+              <td style="padding:36px 40px 24px;">
+                <p style="font-size:16px;color:#2C1A1A;line-height:1.6;margin:0;">
+                  <strong>Attention!</strong> You have received a new custom order from <strong>{customer_name}</strong>. They requested this order by <strong>{order_details.get('preferred_date') or 'no specific date'}</strong>.
+                </p>
+              </td>
+            </tr>
+
+            <!-- DETAILS BOX -->
+            <tr>
+              <td style="padding:0 40px 32px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #E8DDD7;border-radius:8px;overflow:hidden;">
+                  {_detail_row('Customer Name', customer_name)}
+                  {_detail_row('Email', customer_email)}
+                  {_detail_row('WhatsApp', order_details.get('contact') or 'Not provided')}
+                  {_detail_row('Collection', order_details.get('collection_id') or 'Custom Signature')}
+                  {_detail_row('Occasion', order_details.get('occasion') or 'Not specified')}
+                  {_detail_row('Budget Range', order_details.get('budget_range') or 'Not specified')}
+                  {_detail_row('Delivery Date', order_details.get('preferred_date') or 'Flexible')}
+                  {_detail_row('Photos Provided', str(order_details.get('photo_count') or '—'))}
+                </table>
+              </td>
+            </tr>
+
+            <!-- CTA BUTTON -->
+            <tr>
+              <td align="center" style="padding:0 40px 40px;">
+                <a href="https://blosoom-reverie-admin.vercel.app/" style="display:inline-block;background-color:#8C4A40;color:#FFFFFF;font-size:12px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;padding:16px 36px;border-radius:6px;font-weight:700;">
+                  Open Admin Dashboard
+                </a>
+              </td>
+            </tr>
+
+          </table>
+        </td></tr>
+      </table>
+
+    </body>
+    </html>
+    """
+
+    message = MessageSchema(
+        subject=f"🚀 New Order from {customer_name}",
+        recipients=[settings.mail_username],
+        body=html,
+        subtype=MessageType.html
+    )
+
+    fm = FastMail(conf)
+    try:
+        await fm.send_message(message)
+        logging.info(f"Admin notification email sent to studio for order from {customer_name}")
+    except Exception as e:
+        logging.error(f"Failed to send admin email: {e}")
