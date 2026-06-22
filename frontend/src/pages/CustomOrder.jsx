@@ -360,8 +360,8 @@ export default function CustomOrder() {
                     type="button"
                     onClick={() => setForm((prev) => ({ ...prev, budget_range: b }))}
                     className={`border px-3 py-2.5 text-[10px] tracking-[1px] font-inter uppercase transition-all duration-200 rounded-md ${form.budget_range === b
-                        ? 'bg-charcoal text-ivory border-charcoal'
-                        : 'border-[#D0B8A8] text-charcoal hover:border-charcoal font-medium'
+                      ? 'bg-charcoal text-ivory border-charcoal'
+                      : 'border-[#D0B8A8] text-charcoal hover:border-charcoal font-medium'
                       }`}
                   >
                     {b}

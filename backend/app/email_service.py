@@ -300,7 +300,7 @@ async def send_admin_notification(customer_name: str, customer_email: str, order
     """
 
     message = MessageSchema(
-        subject=f"🚀 New Order from {customer_name}",
+        subject=f"🌸 New Order from {customer_name}",
         recipients=[settings.mail_username],
         body=html,
         subtype=MessageType.html
