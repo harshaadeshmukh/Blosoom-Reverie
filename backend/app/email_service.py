@@ -136,7 +136,7 @@ async def send_order_confirmation(contact_info: str, customer_name: str, order_d
                         {_detail_row('Delivery Date', order_details.get('preferred_date') or 'Flexible')}
                         {_detail_row('Photos', str(order_details.get('photo_count') or '—'))}
                         {_detail_row('Email', contact_info)}
-                        {_detail_row('WhatsApp / Mobile', order_details.get('phone') or 'Not provided')}
+                        {_detail_row('WhatsApp / Mobile', order_details.get('contact') or 'Not provided')}
 
                       </table>
                     </td>
