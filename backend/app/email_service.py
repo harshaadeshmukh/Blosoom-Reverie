@@ -165,20 +165,7 @@ async def send_order_confirmation(contact_info: str, customer_name: str, order_d
               </td>
             </tr>
 
-            <!-- ══ CTA BUTTON ══ -->
-            <tr>
-              <td align="center" style="padding:32px 44px 0;">
-                <table border="0" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td align="center" style="background-color:#2C1A1A;border-radius:4px;">
-                      <a href="https://blosoomreverie.com/collections" style="display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#FDFAF7;text-decoration:none;padding:14px 32px;font-weight:600;">
-                        Browse Collections
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
+
 
             <!-- ══ SIGNATURE ══ -->
             <tr>
