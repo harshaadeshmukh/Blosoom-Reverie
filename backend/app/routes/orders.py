@@ -25,13 +25,12 @@ async def create_order(request: Request, order: OrderCreate, background_tasks: B
     result = await db.orders.insert_one(doc)
     created = await db.orders.find_one({"_id": result.inserted_id})
     
-    # Trigger confirmation email in the background
-    # background_tasks.add_task(
-    #     send_order_confirmation,
-    #     contact_info=order.contact,
-    #     customer_name=order.name,
-    #     order_details=doc
-    # )
+    # Await the email directly so Vercel doesn't kill the function before it finishes
+    await send_order_confirmation(
+        contact_info=order.email,
+        customer_name=order.name,
+        order_details=doc
+    )
     
     return fix_id(created)
 

@@ -140,6 +140,7 @@ export default function CustomOrder() {
   const [form, setForm] = useState({
     name: '',
     contact: '',
+    email: '',
     collection_id: '',
     occasion: '',
     photo_count: '',
@@ -193,7 +194,7 @@ export default function CustomOrder() {
       }
       setStatus('success');
       setForm({
-        name: '', contact: '', collection_id: '', occasion: '',
+        name: '', contact: '', email: '', collection_id: '', occasion: '',
         photo_count: '', message: '', preferred_date: '', budget_range: '',
       });
     } catch (err) {
@@ -260,6 +261,21 @@ export default function CustomOrder() {
                   className={inputCls}
                 />
               </div>
+            </div>
+
+            {/* Row 1.5: Email */}
+            <div className="animate-fade-in">
+              <label htmlFor="order-email" className={labelCls}>Email Address</label>
+              <input
+                id="order-email"
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                placeholder="yourname@gmail.com"
+                className={inputCls}
+              />
             </div>
 
             {/* Row 2: Collection + Occasion */}

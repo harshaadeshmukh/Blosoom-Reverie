@@ -7,6 +7,7 @@ class OrderCreate(BaseModel):
     collection_id: Optional[str] = None
     name: str
     contact: str
+    email: str
     phone: Optional[str] = None
     occasion: str
     photo_count: int = Field(ge=1, le=100)
