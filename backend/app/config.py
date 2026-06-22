@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     mongodb_uri: str = "mongodb://localhost:27017"
     db_name: str = "blosoom_reverie"
     allowed_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+    admin_api_key: str = "blosoom2024" # Default fallback, matches frontend password
 
     # Email Settings
     mail_username: str = ""

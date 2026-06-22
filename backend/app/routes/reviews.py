@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Request
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Request, Depends, Security
 from datetime import datetime, timezone
 import shutil
 import os
@@ -8,6 +8,8 @@ from bson import ObjectId
 from ..database import get_database
 from ..models.review import ReviewCreate
 from ..limiter import limiter
+from ..auth import get_admin_api_key, api_key_header
+from ..config import settings
 from datetime import datetime, timezone
 import shutil
 import os
@@ -58,7 +60,9 @@ async def create_review(
 
 @router.get("/")
 @limiter.limit("60/minute")
-async def list_reviews(request: Request, limit: int = 20, public: bool = False):
+async def list_reviews(request: Request, limit: int = 20, public: bool = False, api_key: str = Security(api_key_header)):
+    if not public and api_key != settings.admin_api_key:
+        raise HTTPException(status_code=401, detail="Invalid API Key for non-public reviews")
     db = get_database()
     query = {}
     if public:
@@ -72,7 +76,7 @@ class VisibilityUpdate(BaseModel):
 
 @router.patch("/{review_id}/visibility")
 @limiter.limit("30/minute")
-async def update_visibility(request: Request, review_id: str, payload: VisibilityUpdate):
+async def update_visibility(request: Request, review_id: str, payload: VisibilityUpdate, api_key: str = Depends(get_admin_api_key)):
     db = get_database()
     try:
         oid = ObjectId(review_id)
@@ -86,7 +90,7 @@ async def update_visibility(request: Request, review_id: str, payload: Visibilit
 
 @router.delete("/{review_id}")
 @limiter.limit("30/minute")
-async def delete_review(request: Request, review_id: str):
+async def delete_review(request: Request, review_id: str, api_key: str = Depends(get_admin_api_key)):
     db = get_database()
     try:
         oid = ObjectId(review_id)

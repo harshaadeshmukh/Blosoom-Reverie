@@ -13,6 +13,8 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(sessionStorage.getItem('auth') === 'true');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  
+  const adminApiKey = import.meta.env.VITE_ADMIN_PASSWORD || 'blosoom2024';
 
   const availableYears = useMemo(() => {
     const years = new Set();
@@ -39,7 +41,11 @@ export default function App() {
   const fetchOrders = async () => {
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${API_URL}/api/orders/`);
+      const response = await fetch(`${API_URL}/api/orders/`, {
+        headers: {
+          'X-Admin-API-Key': adminApiKey
+        }
+      });
       if (!response.ok) throw new Error('Failed to fetch');
       const data = await response.json();
       setOrders(data);
@@ -54,7 +60,11 @@ export default function App() {
   const fetchReviews = async () => {
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${API_URL}/api/reviews/?limit=100`);
+      const response = await fetch(`${API_URL}/api/reviews/?limit=100`, {
+        headers: {
+          'X-Admin-API-Key': adminApiKey
+        }
+      });
       if (response.ok) {
         const data = await response.json();
         setReviews(data);
@@ -69,7 +79,10 @@ export default function App() {
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       const response = await fetch(`${API_URL}/api/reviews/${reviewId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'X-Admin-API-Key': adminApiKey
+        }
       });
       if (!response.ok) throw new Error('Failed to delete');
       fetchReviews();
@@ -94,7 +107,10 @@ export default function App() {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       const response = await fetch(`${API_URL}/api/reviews/${reviewId}/visibility`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-Admin-API-Key': adminApiKey
+        },
         body: JSON.stringify({ is_visible: newVisibility })
       });
       if (!response.ok) {
@@ -115,7 +131,8 @@ export default function App() {
       const response = await fetch(`${API_URL}/api/orders/${orderId}/status`, {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Admin-API-Key': adminApiKey
         },
         body: JSON.stringify({ status: newStatus })
       });

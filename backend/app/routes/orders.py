@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
+from fastapi import APIRouter, HTTPException, BackgroundTasks, Request, Depends
 from bson import ObjectId
 from datetime import datetime, timezone
 
@@ -6,6 +6,7 @@ from ..database import get_database
 from ..models.order import OrderCreate, OrderStatusUpdate
 from ..email_service import send_order_confirmation, send_admin_notification
 from ..limiter import limiter
+from ..auth import get_admin_api_key
 
 router = APIRouter(prefix="/api/orders", tags=["orders"])
 
@@ -44,7 +45,7 @@ async def create_order(request: Request, order: OrderCreate, background_tasks: B
 
 @router.get("/")
 @limiter.limit("30/minute")
-async def list_orders(request: Request):
+async def list_orders(request: Request, api_key: str = Depends(get_admin_api_key)):
     db = get_database()
     docs = await db.orders.find().sort("created_at", -1).to_list(500)
     return [fix_id(d) for d in docs]
@@ -52,7 +53,7 @@ async def list_orders(request: Request):
 
 @router.get("/{order_id}")
 @limiter.limit("30/minute")
-async def get_order(request: Request, order_id: str):
+async def get_order(request: Request, order_id: str, api_key: str = Depends(get_admin_api_key)):
     db = get_database()
     try:
         oid = ObjectId(order_id)
@@ -66,7 +67,7 @@ async def get_order(request: Request, order_id: str):
 
 @router.patch("/{order_id}/status")
 @limiter.limit("30/minute")
-async def update_order_status(request: Request, order_id: str, update_data: OrderStatusUpdate):
+async def update_order_status(request: Request, order_id: str, update_data: OrderStatusUpdate, api_key: str = Depends(get_admin_api_key)):
     db = get_database()
     try:
         oid = ObjectId(order_id)
