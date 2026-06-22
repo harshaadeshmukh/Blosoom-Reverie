@@ -34,8 +34,11 @@ app.include_router(reviews.router)
 
 # Mount static files for uploads
 import os
-os.makedirs("uploads", exist_ok=True)
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+try:
+    os.makedirs("uploads", exist_ok=True)
+    app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+except Exception:
+    pass # Fallback for Vercel's read-only file system
 
 
 @app.on_event("startup")
