@@ -18,14 +18,14 @@ const BUDGET_RANGES = [
 
 /* ─── Petals config ──────────────────────────────────────────────────── */
 const PETALS = [
-  { emoji: '🌸', x: -55, delay: 0,    dur: 1.8, size: 18 },
-  { emoji: '✉️', x:  20, delay: 0.15, dur: 2.1, size: 22 },
-  { emoji: '🌸', x:  60, delay: 0.3,  dur: 1.6, size: 14 },
+  { emoji: '🌸', x: -55, delay: 0, dur: 1.8, size: 18 },
+  { emoji: '✉️', x: 20, delay: 0.15, dur: 2.1, size: 22 },
+  { emoji: '🌸', x: 60, delay: 0.3, dur: 1.6, size: 14 },
   { emoji: '💌', x: -30, delay: 0.45, dur: 2.3, size: 20 },
-  { emoji: '🌸', x:  45, delay: 0.1,  dur: 1.9, size: 16 },
-  { emoji: '✨', x: -70, delay: 0.6,  dur: 2.0, size: 16 },
-  { emoji: '🌸', x:  80, delay: 0.25, dur: 1.7, size: 12 },
-  { emoji: '✨', x: -10, delay: 0.5,  dur: 2.2, size: 14 },
+  { emoji: '🌸', x: 45, delay: 0.1, dur: 1.9, size: 16 },
+  { emoji: '✨', x: -70, delay: 0.6, dur: 2.0, size: 16 },
+  { emoji: '🌸', x: 80, delay: 0.25, dur: 1.7, size: 12 },
+  { emoji: '✨', x: -10, delay: 0.5, dur: 2.2, size: 14 },
 ];
 
 /* ─── Animated success screen ────────────────────────────────────────── */
@@ -101,7 +101,7 @@ function SuccessScreen({ onReset }) {
         {/* Simple Checkmark SVG */}
         <div className="ss-env">
           <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 13L9 17L19 7" stroke="#8C4A40" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M5 13L9 17L19 7" stroke="#8C4A40" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
       </div>
@@ -261,7 +261,7 @@ export default function CustomOrder() {
                   value={form.contact}
                   onChange={handleChange}
                   required
-                  placeholder="+91 8625902160"
+                  placeholder="+91 9876543210"
                   className={inputCls}
                 />
               </div>
@@ -359,11 +359,10 @@ export default function CustomOrder() {
                     key={b}
                     type="button"
                     onClick={() => setForm((prev) => ({ ...prev, budget_range: b }))}
-                    className={`border px-3 py-2.5 text-[10px] tracking-[1px] font-inter uppercase transition-all duration-200 rounded-md ${
-                      form.budget_range === b
+                    className={`border px-3 py-2.5 text-[10px] tracking-[1px] font-inter uppercase transition-all duration-200 rounded-md ${form.budget_range === b
                         ? 'bg-charcoal text-ivory border-charcoal'
                         : 'border-[#D0B8A8] text-charcoal hover:border-charcoal font-medium'
-                    }`}
+                      }`}
                   >
                     {b}
                   </button>
