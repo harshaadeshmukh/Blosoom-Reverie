@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     mongodb_uri: str = "mongodb://localhost:27017"
     db_name: str = "blosoom_reverie"
-    allowed_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+    allowed_origins: str = "http://localhost:5173,http://127.0.0.1:5173,https://blosoom-reverie.vercel.app,https://blosoom-reverie-admin.vercel.app"
     admin_api_key: str = "blosoom2024" # Default fallback, matches frontend password
 
     # Email Settings
